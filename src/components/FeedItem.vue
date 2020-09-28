@@ -1,0 +1,101 @@
+<template>
+  <div>
+    <div class="feed-img-container" v-if="post.avatar_image">
+      <img class="feed-avatar-img" :src="`${IMAGE_BASE_URL}/${post.avatar_image}`"/>
+    </div>
+    {{post.fullname}} <em>{{post.username}}</em>
+  </div>
+  <div>
+    {{showTime(post.created_at)}}
+  </div>
+  <div class="post-content">
+    {{post.content}}
+  </div>
+  <div class="feedback">
+    <div class="like-segment">
+      <div class="feedback-item"><LikeIcon/></div> <div class="feedback-item feedback-value" v-if="post.likes">{{post.likes}}</div>
+    </div>
+    <div class="comments" @click="toggleComments">
+      <div class="feedback-item"><CommentIcon/></div> <div class="feedback-item feedback-value" v-if="post.comments.length">{{post.comments.length}}</div>
+    </div>
+  </div>
+  <div>
+      <!-- <transition name="expand">   -->
+    <div v-show="showComments">
+      <ul class="comment">
+        <li v-for="comment in post.comments" :key="comment.id">
+          <Comment :comment="comment"/>
+        </li>
+      </ul>
+      <input @keyup.enter="doComment" v-model="commentContent" type="text" placeholder="Comment" />
+    </div>
+      <!-- </transition> -->
+  </div>
+</template>
+
+<script>
+import { showTime } from '../util'
+import Comment from './Comment.vue'
+import { IMAGE_BASE_URL } from '../constants'
+import { comment } from "../api"
+import CommentIcon from './icons/CommentIcon'
+import LikeIcon from './icons/LikeIcon'
+
+export default {
+  name: 'FeedItem',
+  props: {
+    post: Object
+  },
+  components: { Comment, CommentIcon, LikeIcon },
+  data() {
+    return {
+      showComments: false,
+      IMAGE_BASE_URL,
+      commentContent: ""
+    }
+  },
+  methods: {
+    toggleComments() {
+      this.showComments = !this.showComments
+    },
+    showTime: showTime,
+    doComment() {
+      comment(this.commentContent, this.post.id).then(response => {
+        this.commentContent = ""
+        // this.$store.dispatch('getfeed')
+      }).catch(console.log)
+    }
+  }
+}
+</script>
+
+<style>
+.feed-avatar-img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.feed-img-container {
+  float: left;
+  margin-right: 1em;
+}
+
+.feedback {
+  display: flex;
+  justify-content: center;
+}
+
+.like-segment {
+  width: 250px;
+}
+
+.feedback-item {
+  float: left;
+}
+
+.feedback-value {
+  margin: 0.3em 0 0 .6em;
+  color: gray;
+}
+</style>

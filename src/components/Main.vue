@@ -1,0 +1,64 @@
+<template>
+  <TopBar></TopBar>
+  <div class="flex-container">
+    <NavMenu/>
+    <Feed v-show="currentComponent==='Feed'"/>
+    <Messages v-show="currentComponent==='Messages'"/>
+    <Profile v-show="currentComponent==='Profile'" />
+    <People v-if="currentComponent==='People'" />
+    <Notifications v-if="currentComponent==='Notifications'" />
+    <div class="fill">&nbsp;</div>
+  </div>
+</template>
+
+<script>
+import TopBar from "./TopBar.vue";
+import NavMenu from "./NavMenu"
+import Feed from "./Feed.vue";
+import Messages from "./Messages.vue";
+import Profile from "./Profile.vue"
+import People from "./People"
+import Notifications from "./Notifications.vue";
+
+export default {
+  name: "Main",
+  components: {
+    TopBar,
+    NavMenu,
+    Feed,
+    Messages,
+    Profile,
+    People,
+    Notifications
+  },
+  data() {
+    return {
+      which: "Feed",
+    };
+  },
+  computed: {
+    currentComponent() {
+      return this.$store.state.currentComponent;
+    },
+  },
+  mounted() {
+    setInterval(() => {
+      switch (this.currentComponent) {
+        case 'Feed':
+          this.$store.dispatch('getfeed')
+          break;
+        case 'Messages':
+
+          break;
+        
+      }
+    }, 15000)
+  }
+};
+</script>
+
+<style scoped>
+.fill {
+  width: 200px;
+}
+</style>
