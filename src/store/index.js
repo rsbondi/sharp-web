@@ -13,6 +13,7 @@ export default createStore({
     messages: {messages: []},
     currentComponent: "Feed",
     auth: false, // this is for ui, actual requires macaroon
+    user: {}
   },
   mutations: {
     setpage(state, payload) {
@@ -25,6 +26,9 @@ export default createStore({
     setauth(state, payload) {
       state.auth = payload
     },
+    setuser(state, payload) {
+      state.user = payload
+    }
   },
   actions: {
     async setpage (context, payload) {

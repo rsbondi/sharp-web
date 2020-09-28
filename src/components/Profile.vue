@@ -4,14 +4,14 @@
     <div class="profile">
       <div class="profile-img">
         <label for="cover-input">
-          <img src="https://via.placeholder.com/800x400" />
+          <img class="cover-image" :src="coverUrl" />
         </label>
         <input id="cover-input" type="file" @change="coverChanged" />
 
         <div class="profile-avatar">
           <label for="avatar-input">
             <img
-              src="https://res.cloudinary.com/dj92lnawi/image/upload/v1598407927/user/eddc6e99-61b5-4c07-82c5-76739fc0721d.png"
+              :src="avatarUrl"
               class="profile-avatar-img"
             />
           </label>
@@ -21,12 +21,18 @@
     </div>
     <div>
       <label>
-        <input type="checkbox" v-model="mentor" @click="setMentor"/> Available to mentor
+        <input type="checkbox" v-model="mentor" @click="setMentor" /> Available
+        to mentor
       </label>
     </div>
     <div>
       <label>
-        <input type="checkbox" v-model="accountability" @click="setAccountability" /> Available for accountability
+        <input
+          type="checkbox"
+          v-model="accountability"
+          @click="setAccountability"
+        />
+        Available for accountability
       </label>
     </div>
 
@@ -43,6 +49,7 @@
 <script>
 import FeedItem from "./FeedItem";
 import { post, uploadUserImage, offer, userinfo } from "../api";
+import { IMAGE_BASE_URL, DEFAULT_AVATAR_URL, DEFAULT_COVER_URL } from "../constants";
 
 export default {
   name: "Profile",
@@ -56,11 +63,23 @@ export default {
       coverFile: "",
       mentor: false,
       accountability: false,
+      user: {},
     };
   },
   computed: {
     feedContent() {
       return this.$store.state.feed;
+    },
+    // TODO: default image
+    avatarUrl() {
+      return this.user.avatar_image
+        ? `${IMAGE_BASE_URL}/${this.user.avatar_image}`
+        : DEFAULT_AVATAR_URL
+    },
+    coverUrl() {
+      return this.user.cover_image
+        ? `${IMAGE_BASE_URL}/${this.user.cover_image}`
+        : DEFAULT_COVER_URL
     },
   },
   watch() {
@@ -70,44 +89,48 @@ export default {
     avatarChanged(event) {
       this.avatarFile = event.target.files[0];
       if (this.avatarFile.type.match(/image\//)) {
-        this.uploadAvatar()
+        this.uploadAvatar();
       } else {
-        console.error('invalid image file')
+        console.error("invalid image file");
       }
     },
     uploadAvatar() {
       const formData = new FormData();
       formData.append("avatar", this.avatarFile, this.avatarFile.name);
-      uploadUserImage(formData, 'avatar').then(console.log);
+      uploadUserImage(formData, "avatar").then(console.log);
     },
     coverChanged(event) {
       this.coverFile = event.target.files[0];
       if (this.coverFile.type.match(/image\//)) {
-        this.uploadCover()
+        this.uploadCover();
       } else {
-        console.error('invalid image file')
+        console.error("invalid image file");
       }
     },
     uploadCover() {
       const formData = new FormData();
       formData.append("cover", this.coverFile, this.coverFile.name);
-      uploadUserImage(formData, 'cover').then(console.log);
+      uploadUserImage(formData, "cover").then(console.log);
     },
     setMentor(e) {
-      offer(1, e.target.checked).then(console.log).catch(console.error)
+      offer(1, e.target.checked).then(console.log).catch(console.error);
     },
     setAccountability(e) {
-      offer(0, e.target.checked).then(console.log).catch(console.error)
+      offer(0, e.target.checked).then(console.log).catch(console.error);
     },
   },
   mounted() {
-    userinfo().then(data => {
-      const offerings = data.info.offerings.split(',')
-      this.accountability = !!~offerings.indexOf("0")
-      this.mentor = !!~offerings.indexOf("1")
-      document.title = data.info.fullname
-    }).catch(console.error)
-  }
+    userinfo()
+      .then((data) => {
+        const offerings = data.info.offerings.split(",");
+        this.accountability = !!~offerings.indexOf("0");
+        this.mentor = !!~offerings.indexOf("1");
+        this.user = data.info;
+        this.$store.commit('setuser', data.info)
+        document.title = data.info.fullname;
+      })
+      .catch(console.error);
+  },
 };
 </script>
 
@@ -134,7 +157,7 @@ export default {
 .profile-avatar-img {
   height: 100px;
   width: 100px;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .profile {
@@ -146,7 +169,13 @@ export default {
   top: 0;
 }
 
-.profile-avatar input[type="file"], .profile-img input[type="file"] {
+.profile-avatar input[type="file"],
+.profile-img input[type="file"] {
   display: none;
+}
+
+.cover-image {
+  width: 800px;
+  height: 400px;
 }
 </style>

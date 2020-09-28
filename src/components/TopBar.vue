@@ -25,7 +25,7 @@
         <button class="topbar-avatar-icon" @click="loadProfile">
           <div class="topbar-icons topbar-avatar">
             <img
-              src="https://res.cloudinary.com/dj92lnawi/image/upload/v1598407927/user/eddc6e99-61b5-4c07-82c5-76739fc0721d.png"
+              :src="avatarUrl"
               class="topbar-avatar-img"
             />
           </div>
@@ -40,7 +40,7 @@ import SearchIcon from "./icons/SearchIcon.vue";
 import MessageIcon from "./icons/MessageIcon.vue";
 import MenuIcon from "./icons/MenuIcon.vue";
 import NotificationIcon from "./icons/NotificationIcon.vue";
-import { PAGE } from '../constants'
+import { PAGE, IMAGE_BASE_URL, DEFAULT_AVATAR_URL } from '../constants'
 
 export default {
   components: {
@@ -48,6 +48,13 @@ export default {
     MessageIcon,
     MenuIcon,
     NotificationIcon,
+  },
+  computed: {
+    avatarUrl() {
+      return this.$store.state.user.avatar_image ?
+        `${IMAGE_BASE_URL}/${this.$store.state.user.avatar_image}` :
+        DEFAULT_AVATAR_URL // TODO default
+    }
   },
   methods: {
     loadFeed(e) {

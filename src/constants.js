@@ -14,3 +14,6 @@ export const REQUEST = {
   ACCOUNTABILITY: 0,
   MENTOR: 1
 }
+
+export const DEFAULT_AVATAR_URL = 'https://via.placeholder.com/100x100'
+export const DEFAULT_COVER_URL = 'https://via.placeholder.com/800x400'
