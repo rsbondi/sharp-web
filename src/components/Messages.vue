@@ -18,7 +18,7 @@
           <div class="message-image">
             <img v-if="messageContent[user].avatar_image" :src="imageUrl(user)" class="message-image"/>
           </div>
-          <div class="message-user">
+          <div class="message-user" :class="selected(user)">
           {{messageContent[user].name}}
           </div>
           </li>
@@ -69,6 +69,9 @@ export default {
     },
     imageUrl(id) {
       return `${IMAGE_BASE_URL}/${this.messageContent[id].avatar_image}`
+    },
+    selected(user) {
+      return this.messageContent[user].id === this.user.id ? 'user-selected' : ''
     }
 
   },
@@ -99,5 +102,9 @@ export default {
   padding-top: 0.4em;
   position: relative;
   left: 10px;
+}
+
+.user-selected {
+  font-weight: bold;
 }
 </style>
