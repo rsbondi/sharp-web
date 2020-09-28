@@ -10,7 +10,7 @@
         Accept request
       </button>
       <div>{{showTime(notification.created_at)}}</div>
-      <div v-if="notification.notification_type!='request'">
+      <div v-if="showContent">
         <div class="notification-content">{{notification.content}}</div>
       </div>
     </div>
@@ -58,6 +58,10 @@ export default {
               ? "an accountability partnership"
               : "a mentorship")
           );
+        case "accountability":
+          return "accepted your accountability request"
+        case "mentor":
+          return "accepted your mentor request"
       }
     },
     requestContent() {
@@ -66,6 +70,9 @@ export default {
     },
     enableAcceptButton(n) {
       return this.notification.notification_type==='request' && this.requestContent.status === REQUEST.STATUS.PENDING
+    },
+    showContent() {
+      return this.notification.notification_type=='message'
     },
   },
 };
