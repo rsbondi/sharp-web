@@ -1,0 +1,107 @@
+<template>
+  <div class="notifications">
+    <div class="notification" @click="handleNotificationClick">
+      <div class="notification-img-container" v-if="notification.avatar_image">
+        <img class="notification-avatar-img" :src="`${IMAGE_BASE_URL}/${notification.avatar_image}`" />
+      </div>
+      {{notification.fullname}}&nbsp;
+      {{notificationText}}
+      <button class="request-button" v-if="enableAcceptButton" @click="handleAcceptRequest">
+        Accept request
+      </button>
+      <div>{{showTime(notification.created_at)}}</div>
+      <div v-if="notification.notification_type!='request'">
+        <div class="notification-content">{{notification.content}}</div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { showTime } from "../util";
+import { updaterequest } from "../api";
+import { IMAGE_BASE_URL, REQUEST } from "../constants";
+export default {
+  name: "Notification",
+  data() {
+    return {
+      IMAGE_BASE_URL,
+      showTime: showTime
+    };
+  },
+  props: {
+    notification: Object
+  },
+  methods: {
+    handleNotificationClick() {
+      console.log(this.notification)
+    },
+    handleAcceptRequest() {
+      updaterequest(this.notification.source_id, REQUEST.STATUS.ACTIVE).then(response => {
+        console.log(response)
+        if (response.success) {
+          this.notification.content = this.requestContent.name+',1'
+        }
+      }).catch(console.log)
+    }
+
+  },
+  computed: {
+    notificationText() {
+      switch (this.notification.notification_type) {
+        case "message":
+          return "sent you a new message";
+        case "request":
+          return (
+            "requested " +
+            (this.requestContent.name === "accountability"
+              ? "an accountability partnership"
+              : "a mentorship")
+          );
+      }
+    },
+    requestContent() {
+      const csv = this.notification.content.split(',')
+      return {name: csv[0], status: parseInt(csv[1], 10)}
+    },
+    enableAcceptButton(n) {
+      return this.notification.notification_type==='request' && this.requestContent.status === REQUEST.STATUS.PENDING
+    },
+  },
+};
+</script>
+
+<style>
+.notifications {
+  width: 800px;
+}
+
+.notification-avatar-img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.notification-img-container {
+  float: left;
+  margin-right: 1em;
+}
+
+.notification {
+  clear: both;
+  margin-bottom: 1em;
+  border: 1px solid lightgray;
+  padding: 1em;
+  min-height: 52px;
+  border-radius: 0.4em;  
+}
+
+.notification-content {
+  color: #9999aa;
+}
+
+.request-button {
+  float: right;
+  max-width: 100px;
+}
+</style>
