@@ -45,28 +45,28 @@ export default {
   },
   computed: {
     isOfferingAccountability() {
-      return !!~this.person.offerings.split(',').indexOf(''+REQUEST.ACCOUNTABILITY)
+      return !!~this.person.offerings.split(',').indexOf(''+REQUEST.TYPE.ACCOUNTABILITY)
     },
     isAccountability() {
-      return !!~this.person.requests.split(',').indexOf(''+REQUEST.ACCOUNTABILITY)
+      return !!~this.person.requests.split(',').indexOf(''+REQUEST.TYPE.ACCOUNTABILITY)
     },
     isOfferingMentor() {
-      return !!~this.person.offerings.split(',').indexOf(''+REQUEST.MENTOR)
+      return !!~this.person.offerings.split(',').indexOf(''+REQUEST.TYPE.MENTOR)
     },
     isMentor() {
-      return !!~this.person.requests.split(',').indexOf(''+REQUEST.MENTOR)
+      return !!~this.person.requests.split(',').indexOf(''+REQUEST.TYPE.MENTOR)
     },
   },
   methods: {
     requestAccountability() {
-      request(REQUEST.ACCOUNTABILITY, this.person.id).then(data => {
+      request(REQUEST.TYPE.ACCOUNTABILITY, this.person.id).then(data => {
         if (data.success) {
           // TODO:
         }
       })
     },
     requestMentor() {
-      request(REQUEST.MENTOR, this.person.id).then(data => {
+      request(REQUEST.TYPE.MENTOR, this.person.id).then(data => {
         if (data.success) {
           this.isMentor = true
         }

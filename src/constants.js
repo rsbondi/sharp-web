@@ -11,9 +11,15 @@ export const PAGE = {
 export const IMAGE_BASE_URL = 'https://127.0.0.1:3009/image'
 
 export const REQUEST = {
-  ACCOUNTABILITY: 0,
-  MENTOR: 1
+  TYPE: {
+    ACCOUNTABILITY: 0,
+    MENTOR: 1
+  },
+  STATUS: {
+    PENDING: 0,
+    ACTIVE: 1,
+    TERMINATED: 2
+  }
 }
-
 export const DEFAULT_AVATAR_URL = 'https://via.placeholder.com/100x100'
 export const DEFAULT_COVER_URL = 'https://via.placeholder.com/800x400'
