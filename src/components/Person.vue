@@ -21,7 +21,7 @@
         <button v-if="isOfferingMentor && !isMentor" @click="requestMentor">Request For Mentoring</button>
       </div>
       <div class="request">
-        <button v-if="!following" @click="follow">Follow</button>
+        <button v-if="!person.ifollow" @click="follow">Follow</button>
       </div>
     </div>
   </div>
@@ -40,7 +40,6 @@ export default {
     return {
       IMAGE_BASE_URL: IMAGE_BASE_URL,
       REQUEST: REQUEST,
-      following: this.person.ifollow
     }
   },
   computed: {
@@ -68,14 +67,14 @@ export default {
     requestMentor() {
       request(REQUEST.TYPE.MENTOR, this.person.id).then(data => {
         if (data.success) {
-          this.isMentor = true
+          // TODO:
         }
       })
     },
     follow() {
       follow(this.person.id).then(data => {
         if (data.success) {
-          this.following = true
+          this.person.ifollow = true
         }
       })
     },

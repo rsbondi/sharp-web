@@ -62,6 +62,8 @@ export default {
           return "accepted your accountability request"
         case "mentor":
           return "accepted your mentor request"
+        case "follow":
+          return "followed you"
       }
     },
     requestContent() {
