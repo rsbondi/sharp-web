@@ -14,7 +14,14 @@
             v-for="user in Object.keys(messageContent)"
             :key="user"
             @click="selectedUser(user)"
-          >{{user}}</li>
+          >
+          <div class="message-image">
+            <img v-if="messageContent[user].avatar_image" :src="imageUrl(user)" class="message-image"/>
+          </div>
+          <div class="message-user">
+          {{messageContent[user].name}}
+          </div>
+          </li>
         </ul>
       </div>
       <div class="messages">
@@ -38,6 +45,7 @@
 <script>
 import { showTime } from '../util'
 import { message } from "../api"
+import { IMAGE_BASE_URL } from '../constants'
 
 export default {
   name: "Messages",
@@ -58,6 +66,9 @@ export default {
         console.log(response)
         this.message = ""
       }).catch(console.log)
+    },
+    imageUrl(id) {
+      return `${IMAGE_BASE_URL}/${this.messageContent[id].avatar_image}`
     }
 
   },
@@ -77,4 +88,16 @@ export default {
 </script>
 
 <style>
+.message-image {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  float: left;
+}
+
+.message-user {
+  padding-top: 0.4em;
+  position: relative;
+  left: 10px;
+}
 </style>
