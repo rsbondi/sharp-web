@@ -8,6 +8,11 @@ export const PAGE = {
   PROGRAM: 6,
 }
 
+export const LIKE = {
+  POST: 0,
+  GROUP_POST: 1,
+}
+
 export const IMAGE_BASE_URL = 'https://127.0.0.1:3009/image'
 
 export const REQUEST = {

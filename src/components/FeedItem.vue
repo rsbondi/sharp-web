@@ -12,8 +12,8 @@
     {{post.content}}
   </div>
   <div class="feedback">
-    <div class="like-segment">
-      <div class="feedback-item"><LikeIcon/></div> <div class="feedback-item feedback-value" v-if="post.likes">{{post.likes}}</div>
+    <div class="like-segment" @click="likePost">
+      <div class="feedback-item" :class="ilikeStyle"><LikeIcon/></div> <div class="feedback-item feedback-value" v-if="post.likes">{{post.likes}}</div>
     </div>
     <div class="comments" @click="toggleComments">
       <div class="feedback-item"><CommentIcon/></div> <div class="feedback-item feedback-value" v-if="post.comments.length">{{post.comments.length}}</div>
@@ -36,8 +36,8 @@
 <script>
 import { showTime } from '../util'
 import Comment from './Comment.vue'
-import { IMAGE_BASE_URL } from '../constants'
-import { comment } from "../api"
+import { IMAGE_BASE_URL, LIKE } from '../constants'
+import { comment, like } from "../api"
 import CommentIcon from './icons/CommentIcon'
 import LikeIcon from './icons/LikeIcon'
 
@@ -54,6 +54,11 @@ export default {
       commentContent: ""
     }
   },
+  computed: {
+    ilikeStyle() {
+      return this.post.ilike ? 'ilike' : 'like-icon'
+    }
+  },
   methods: {
     toggleComments() {
       this.showComments = !this.showComments
@@ -63,6 +68,21 @@ export default {
       comment(this.commentContent, this.post.id).then(response => {
         this.commentContent = ""
         // this.$store.dispatch('getfeed')
+      }).catch(console.log)
+    },
+    likePost() {
+      like(this.post.id, LIKE.POST).then(response => {
+        if (response.success) {
+          if (response.action === 'like') {
+
+            this.post.ilike = 1
+            this.post.likes++
+          }
+          else {
+            this.post.ilike = 0
+            this.post.likes--
+          } 
+        }
       }).catch(console.log)
     }
   }
@@ -97,5 +117,13 @@ export default {
 .feedback-value {
   margin: 0.3em 0 0 .6em;
   color: gray;
+}
+
+.ilike {
+  fill: #ff6666;
+}
+
+.like-icon {
+  fill: white;
 }
 </style>
