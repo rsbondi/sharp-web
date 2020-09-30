@@ -21,7 +21,7 @@
         <button v-if="isOfferingMentor && !isMentor" @click="requestMentor">Request For Mentoring</button>
       </div>
       <div class="request">
-        <button v-if="!person.ifollow" @click="follow">Follow</button>
+        <button @click="follow">{{person.ifollow ? 'Unfollow' : 'Follow'}}</button>
       </div>
     </div>
   </div>
@@ -74,7 +74,7 @@ export default {
     follow() {
       follow(this.person.id).then(data => {
         if (data.success) {
-          this.person.ifollow = true
+          this.person.ifollow = data.action === 'follow'
         }
       })
     },
