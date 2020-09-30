@@ -66,6 +66,8 @@ export default {
           return "followed you"
         case "like":
           return "liked your post" // TODO: more than just post when implemented.
+        case "comment":
+          return "commented on your post"
       }
     },
     requestContent() {
@@ -76,7 +78,9 @@ export default {
       return this.notification.notification_type==='request' && this.requestContent.status === REQUEST.STATUS.PENDING
     },
     showContent() {
-      return this.notification.notification_type==='message' || this.notification.notification_type==='like' 
+      return this.notification.notification_type==='message' || 
+      this.notification.notification_type==='like' ||
+      this.notification.notification_type==='comment'
     },
   },
 };
