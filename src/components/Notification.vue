@@ -64,6 +64,8 @@ export default {
           return "accepted your mentor request"
         case "follow":
           return "followed you"
+        case "like":
+          return "liked your post" // TODO: more than just post when implemented.
       }
     },
     requestContent() {
@@ -74,7 +76,7 @@ export default {
       return this.notification.notification_type==='request' && this.requestContent.status === REQUEST.STATUS.PENDING
     },
     showContent() {
-      return this.notification.notification_type=='message'
+      return this.notification.notification_type==='message' || this.notification.notification_type==='like' 
     },
   },
 };
