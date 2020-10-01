@@ -2,9 +2,15 @@
   <div>
     <h2>Messages</h2>
     <div class="msgcontainer nobot">
-      <div class="msgusers">User</div>
+      <div class="msgusers">
+        <span>Chats</span>
+        <div class="search-users-btn">
+          <button @click="searchMode" >icon</button>
+        </div>
+      </div>
       <div class="messages">
-        <input @keyup.enter="doMessage" v-model="message" v-if="userSelected" type="text" placeholder="Message">
+        <input @keyup.enter="doMessage" v-model="message" v-if="mode==='chat'" type="text" placeholder="Message">
+        <input @keyup="doSearch" v-model="search" v-if="mode==='search'" type="text" placeholder="Type name of person">
       </div>
     </div>
     <div class="msgcontainer">
@@ -25,7 +31,20 @@
         </ul>
       </div>
       <div class="messages">
-        <div v-if="user">
+        <div class="search-results" v-if="mode==='search' && searchReults.length">
+          <ul>
+            <li v-for="user in searchReults" :key="user.id">
+              <div @click="selectFromSearch(user)" class="user-search-result">
+                <div class="message-image">
+                  <img v-if="user.avatar_image" :src="`${IMAGE_BASE_URL}/${user.avatar_image}`" class="message-image"/>
+                </div>
+                {{user.fullname}} <span class="msg-username">{{user.username}}</span>
+              </div>
+            </li>
+          </ul>
+
+        </div>
+        <div v-if="mode==='chat'">
           <ul>
             <li v-for="message in user.messages" :key="message.id">
               <div class="message" :class="message.mine ? 'mine' : 'theirs'">
@@ -44,7 +63,7 @@
 
 <script>
 import { showTime } from '../util'
-import { message } from "../api"
+import { message, searchusers } from "../api"
 import { IMAGE_BASE_URL } from '../constants'
 
 export default {
@@ -53,12 +72,19 @@ export default {
   data() {
     return {
       user: {},
-      message: ""
+      message: "",
+      mode: 'search',
+      search: '',
+      searchTimer: null,
+      searchReults: [],
+      IMAGE_BASE_URL
     };
   },
   methods: {
     selectedUser(u) {
       this.user = this.$store.state.messages.messages[u];
+      this.mode = 'chat'
+      this.message = ''
     },
     showTime: showTime,
     doMessage() {
@@ -72,6 +98,31 @@ export default {
     },
     selected(user) {
       return this.messageContent[user].id === this.user.id ? 'user-selected' : ''
+    },
+    searchMode() {
+      this.mode = 'search'
+    },
+    doSearch() {
+      if(this.search.length > 1) {
+        // TODO: composition api for debounce
+        if (this.searchTimer) clearTimeout(this.searchTimer)
+        this.searchTimer = setTimeout(() => {
+          searchusers(this.search).then(response => {
+            if (response.success) {
+              this.searchReults = response.users
+            }
+          })
+        }, 500)
+      } else {
+        this.searchReults = []
+      }
+    },
+    selectFromSearch(user) {
+      this.$store.commit('addmessageuser', user)
+      this.mode = 'chat'
+      this.user = user
+      this.searchReults = []
+      this.search = ''
     }
 
   },
@@ -84,8 +135,7 @@ export default {
     }
   },
   watch() {
-    messageContent: () => {};
-    userSelected: console.log
+    messageContent: () => {}
   },
 };
 </script>
@@ -106,5 +156,24 @@ export default {
 
 .user-selected {
   font-weight: bold;
+}
+
+.search-users-btn {
+  float: right;
+}
+
+.search-results {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 0 1em;
+}
+.msg-username {
+  font-style: italic;
+  color: gray;
+}
+
+.user-search-result {
+  height: 50px;
+  clear: both;
 }
 </style>

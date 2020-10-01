@@ -28,6 +28,11 @@ export default createStore({
     },
     setuser(state, payload) {
       state.user = payload
+    },
+    addmessageuser(state, payload) {
+      if (!(payload.username in state.messages.messages)) {
+        state.messages.messages[payload.username] = {...payload, name: payload.fullname, messages: []}
+      }
     }
   },
   actions: {

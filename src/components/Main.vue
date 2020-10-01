@@ -7,7 +7,9 @@
     <Profile v-show="currentComponent==='Profile'" />
     <People v-if="currentComponent==='People'" />
     <Notifications v-if="currentComponent==='Notifications'" />
-    <div class="fill">&nbsp;</div>
+    <div class="fill">
+      <Actions/>
+    </div>
   </div>
 </template>
 
@@ -19,6 +21,7 @@ import Messages from "./Messages.vue";
 import Profile from "./Profile.vue"
 import People from "./People"
 import Notifications from "./Notifications.vue";
+import Actions from "./Actions.vue";
 
 export default {
   name: "Main",
@@ -29,7 +32,8 @@ export default {
     Messages,
     Profile,
     People,
-    Notifications
+    Notifications,
+    Actions
   },
   data() {
     return {

@@ -116,6 +116,14 @@ function notifications() {
   return postApi('notifications')
 }
 
+function actions() {
+  return postApi('actions')
+}
+
+function searchusers(search) {
+  return postApi('searchusers', {search})
+}
+
 module.exports = {
   postApi,
   login,
@@ -138,5 +146,7 @@ module.exports = {
   uploadUserImage,
   userinfo,
   userlist,
-  notifications
+  notifications,
+  actions,
+  searchusers
 }
