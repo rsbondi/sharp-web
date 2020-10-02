@@ -127,6 +127,7 @@ export default {
       }
     },
     selectFromSearch(user) {
+      user.messages = []
       this.$store.commit('addmessageuser', user)
       this.mode = 'chat'
       this.user = user

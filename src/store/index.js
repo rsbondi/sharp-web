@@ -31,7 +31,9 @@ export default createStore({
     },
     addmessageuser(state, payload) {
       if (!(payload.username in state.messages.messages)) {
-        state.messages.messages[payload.username] = {...payload, name: payload.fullname, messages: []}
+        const newState = {...state.messages.messages}
+        newState[payload.username] = {...payload, name: payload.fullname, messages: payload.messages}
+        state.messages.messages = newState
       }
     },
     addmessage(state, payload) {
@@ -39,7 +41,6 @@ export default createStore({
       const newState = {...state.messages.messages}
       newState[payload.username].messages
         .unshift({content, message_id, mine, created_at})
-      console.log('message added', newState)
       state.messages.messages = newState
     }
   },
