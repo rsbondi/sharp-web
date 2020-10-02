@@ -22,7 +22,8 @@
 
 <script>
 import { IMAGE_BASE_URL } from '../constants'
-import { PAGE } from "../constants"
+import { PAGE, REQUEST } from "../constants"
+import { updaterequest } from '../api'
 
 export default {
   name: 'Action',
@@ -45,10 +46,24 @@ export default {
   },
   methods: {
     declineRequest() {
-      console.log(this.action)
+      updaterequest(this.action.id, REQUEST.STATUS.TERMINATED).then(response => {
+        if (response.success) {
+          this.$store.dispatch('getactions')
+        }
+      }).catch(e => {
+        // TODO:
+        console.log(e)
+      })
     },
     acceptRequest() {
-      console.log(this.action)
+      updaterequest(this.action.id, REQUEST.STATUS.ACTIVE).then(response => {
+        if (response.success) {
+          this.action.relation = this.action.relation.split(' ')[0]
+        }
+      }).catch(e => {
+        // TODO:
+        console.log(e)
+      })
     },
     messageContact() {
       this.$store.dispatch('setpage', PAGE.MESSAGES)

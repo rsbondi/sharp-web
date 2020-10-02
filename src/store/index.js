@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 import { PAGE } from '../constants'
 import {postApi, login, newuser, newgroup, joingroup, post,
   message, comment, follow, messages, feed, groupusers,
-  usersgroups, like, likes, offer, request, updaterequest} from '../api'
+  usersgroups, like, likes, offer, request, updaterequest, actions} from '../api'
 import { toISO8601String } from '../util'
 const pages = ["Feed", "Messages", "Notifications", "Profile", "Groups", "People", "Program"] // TODO: sloppy
 export default createStore({
@@ -13,7 +13,8 @@ export default createStore({
     messages: {messages: []},
     currentComponent: "Feed",
     auth: false, // this is for ui, actual requires macaroon
-    user: {}
+    user: {},
+    actions: []
   },
   mutations: {
     setpage(state, payload) {
@@ -42,6 +43,9 @@ export default createStore({
       newState[payload.username].messages
         .unshift({content, message_id, mine, created_at})
       state.messages.messages = newState
+    },
+    getactions(state, payload) {
+      state.actions = payload
     }
   },
   actions: {
@@ -63,6 +67,11 @@ export default createStore({
     },
     async getfeed(context, payload) {
       await updateFeed(context)
+    },
+    getactions(context, payload) {
+      actions().then(response => {
+        context.commit('getactions', response.actions)
+      })
     }
   },
   modules: {

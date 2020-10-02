@@ -37,10 +37,13 @@ export default {
       this.$store.dispatch('setpage', PAGE.PROFILE)
     },
   },
+  computed: {
+    actions() {
+      return this.$store.state.actions
+    }
+  },
   mounted() {
-    actions().then(response => {
-      this.actions = response.actions
-    })
+    this.$store.dispatch('getactions')
   }
 }
 </script>
