@@ -50,8 +50,10 @@ export default createStore({
       state.actions = payload
     },
     setmessageuser(state, payload) {
-      state.messageTo = payload
-    }
+      if (payload.username in state.messages.messages) {
+        state.messageTo = state.messages.messages[payload.username]
+      } else state.messageTo = payload
+    } 
   },
   actions: {
     async setpage (context, payload) {

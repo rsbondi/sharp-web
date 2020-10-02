@@ -127,7 +127,6 @@ export default {
       }
     },
     selectFromSearch(user) {
-      user.messages = []
       this.$store.commit('addmessageuser', user)
       this.$store.commit('setcontent', {key:'messageMode', data: 'chat'})
       this.$store.commit('setmessageuser', user)
@@ -188,5 +187,6 @@ export default {
 .user-search-result {
   height: 50px;
   clear: both;
+  cursor: pointer;
 }
 </style>
