@@ -83,14 +83,23 @@ export default {
   methods: {
     selectedUser(u) {
       this.user = this.$store.state.messages.messages[u];
+      this.user.username = u
       this.mode = 'chat'
       this.message = ''
     },
     showTime: showTime,
     doMessage() {
       message(this.message, this.user.id).then(response => {
-        console.log(response)
-        this.message = ""
+        if (response.success) {
+          this.$store.commit('addmessage', {
+            username: this.user.username, 
+            message_id: response.message.id, 
+            content: response.message.content,
+            mine: 1,
+            created_at: response.message.created_at})
+          this.message = ""
+
+        }
       }).catch(console.log)
     },
     imageUrl(id) {
