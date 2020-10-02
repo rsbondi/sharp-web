@@ -14,7 +14,9 @@ export default createStore({
     currentComponent: "Feed",
     auth: false, // this is for ui, actual requires macaroon
     user: {},
-    actions: []
+    actions: [],
+    messageTo: {},
+    messageMode: 'search'
   },
   mutations: {
     setpage(state, payload) {
@@ -46,6 +48,9 @@ export default createStore({
     },
     getactions(state, payload) {
       state.actions = payload
+    },
+    setmessageuser(state, payload) {
+      state.messageTo = payload
     }
   },
   actions: {
@@ -72,6 +77,17 @@ export default createStore({
       actions().then(response => {
         context.commit('getactions', response.actions)
       })
+    },
+    async messageuser(context, payload) {
+      try {
+        const data = await messages()
+        context.commit('setcontent', {key:'messages', data})
+        const user = context.state.messages.messages[payload]
+        user.username = payload
+        context.commit('setmessageuser', user)
+        context.commit('setcontent', {key:'messageMode', data:'chat'})
+        context.commit('setpage', PAGE.MESSAGES)
+      } catch(e) {console.log(e)}
     }
   },
   modules: {

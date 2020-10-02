@@ -24,11 +24,6 @@ import { PAGE } from "../constants"
 export default {
   name: "Actions",
   components: {Action},
-  data() {
-    return {
-      actions: []
-    }
-  },
   methods: {
     goPeople() {
       this.$store.dispatch('setpage', PAGE.PEOPLE)

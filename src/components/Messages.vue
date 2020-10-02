@@ -71,9 +71,7 @@ export default {
   components: {},
   data() {
     return {
-      user: {},
       message: "",
-      mode: 'search',
       search: '',
       searchTimer: null,
       searchReults: [],
@@ -82,9 +80,11 @@ export default {
   },
   methods: {
     selectedUser(u) {
-      this.user = this.$store.state.messages.messages[u];
-      this.user.username = u
-      this.mode = 'chat'
+      const user = this.$store.state.messages.messages[u];
+      user.username = u
+      this.$store.commit('setmessageuser', user)
+      console.log(user)
+      this.store.commit('setcontent', {key:'messageMode', data: 'chat'})
       this.message = ''
     },
     showTime: showTime,
@@ -109,7 +109,7 @@ export default {
       return this.messageContent[user].id === this.user.id ? 'user-selected' : ''
     },
     searchMode() {
-      this.mode = 'search'
+      this.store.commit('setcontent', {key:'messageMode', data: 'search'})
     },
     doSearch() {
       if(this.search.length > 1) {
@@ -129,8 +129,8 @@ export default {
     selectFromSearch(user) {
       user.messages = []
       this.$store.commit('addmessageuser', user)
-      this.mode = 'chat'
-      this.user = user
+      this.store.commit('setcontent', {key:'messageMode', data: 'chat'})
+      this.store.commit('setmessageuser', user)
       this.searchReults = []
       this.search = ''
     }
@@ -142,10 +142,13 @@ export default {
     },
     userSelected() {
       return typeof this.user.id != 'undefined'
+    },
+    user() {
+      return this.$store.state.messageTo
+    },
+    mode() {
+      return this.$store.state.messageMode
     }
-  },
-  watch() {
-    messageContent: () => {}
   },
 };
 </script>

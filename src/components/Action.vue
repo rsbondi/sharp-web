@@ -66,7 +66,7 @@ export default {
       })
     },
     messageContact() {
-      this.$store.dispatch('setpage', PAGE.MESSAGES)
+      this.$store.dispatch('messageuser', this.action.username)
     }
   }
 }
