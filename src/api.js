@@ -124,7 +124,11 @@ function searchusers(search) {
   return postApi('searchusers', {search})
 }
 
-module.exports = {
+function user(user_id) {
+  return postApi('user', {user_id})
+}
+
+export {
   postApi,
   login,
   newuser,
@@ -148,5 +152,6 @@ module.exports = {
   userlist,
   notifications,
   actions,
-  searchusers
+  searchusers,
+  user
 }

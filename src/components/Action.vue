@@ -66,7 +66,7 @@ export default {
       })
     },
     messageContact() {
-      this.$store.dispatch('messageuser', this.action.username)
+      this.$store.dispatch('messageuser', {username: this.action.username, user_id: this.action.contact})
     }
   }
 }

@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 import { PAGE } from '../constants'
 import {postApi, login, newuser, newgroup, joingroup, post,
   message, comment, follow, messages, feed, groupusers,
-  usersgroups, like, likes, offer, request, updaterequest, actions} from '../api'
+  usersgroups, like, likes, offer, request, updaterequest, actions, user} from '../api'
 import { toISO8601String } from '../util'
 const pages = ["Feed", "Messages", "Notifications", "Profile", "Groups", "People", "Program"] // TODO: sloppy
 export default createStore({
@@ -35,7 +35,7 @@ export default createStore({
     addmessageuser(state, payload) {
       if (!(payload.username in state.messages.messages)) {
         const newState = {...state.messages.messages}
-        newState[payload.username] = {...payload, name: payload.fullname, messages: payload.messages}
+        newState[payload.username] = {...payload, name: payload.fullname, messages: payload.messages || []}
         state.messages.messages = newState
       }
     },
@@ -82,10 +82,12 @@ export default createStore({
       try {
         const data = await messages()
         context.commit('setcontent', {key:'messages', data})
-        const user = context.state.messages.messages[payload]
-        user.username = payload
-        context.commit('setmessageuser', user)
+        const userResponse = await user(payload.user_id)
+        context.commit('addmessageuser', userResponse.user)
+        const selectedUser = context.state.messages.messages[payload.username]
+        selectedUser.username = payload.username
         context.commit('setcontent', {key:'messageMode', data:'chat'})
+        context.commit('setmessageuser', selectedUser)
         context.commit('setpage', PAGE.MESSAGES)
       } catch(e) {console.log(e)}
     }

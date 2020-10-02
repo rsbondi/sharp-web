@@ -84,7 +84,7 @@ export default {
       user.username = u
       this.$store.commit('setmessageuser', user)
       console.log(user)
-      this.store.commit('setcontent', {key:'messageMode', data: 'chat'})
+      this.$store.commit('setcontent', {key:'messageMode', data: 'chat'})
       this.message = ''
     },
     showTime: showTime,
