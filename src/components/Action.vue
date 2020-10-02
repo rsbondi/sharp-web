@@ -41,7 +41,7 @@ export default {
     },
     isMessage() {
       return this.action.relation === 'mentor' || this.action.relation === 'accountability'
-         || this.action.relation === 'protoge'
+         || this.action.relation === 'protege'
     }
   },
   methods: {
