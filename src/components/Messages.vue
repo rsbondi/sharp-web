@@ -109,7 +109,7 @@ export default {
       return this.messageContent[user].id === this.user.id ? 'user-selected' : ''
     },
     searchMode() {
-      this.store.commit('setcontent', {key:'messageMode', data: 'search'})
+      this.$store.commit('setcontent', {key:'messageMode', data: 'search'})
     },
     doSearch() {
       if(this.search.length > 1) {
@@ -129,8 +129,8 @@ export default {
     selectFromSearch(user) {
       user.messages = []
       this.$store.commit('addmessageuser', user)
-      this.store.commit('setcontent', {key:'messageMode', data: 'chat'})
-      this.store.commit('setmessageuser', user)
+      this.$store.commit('setcontent', {key:'messageMode', data: 'chat'})
+      this.$store.commit('setmessageuser', user)
       this.searchReults = []
       this.search = ''
     }
