@@ -1,6 +1,6 @@
 <template>
   <div class="notifications">
-    <div class="notification" @click="handleNotificationClick">
+    <div class="notification">
       <div class="notification-img-container" v-if="notification.avatar_image">
         <img class="notification-avatar-img" :src="`${IMAGE_BASE_URL}/${notification.avatar_image}`" />
       </div>
@@ -11,7 +11,7 @@
       </button>
       <div>{{showTime(notification.created_at)}}</div>
       <div v-if="showContent">
-        <div class="notification-content">{{notification.content}}</div>
+        <div @click="handleNotificationClick" class="notification-content">{{notification.content}}</div>
       </div>
     </div>
   </div>
@@ -35,6 +35,17 @@ export default {
   methods: {
     handleNotificationClick() {
       console.log(this.notification)
+      switch (this.notification.notification_type) {
+        case 'message':
+          // TODO: scroll to
+          this.$store.dispatch('messageuser', {
+            username: this.notification.username, user_id: this.notification.user_id})
+          break;
+        case 'post':
+          break;
+        case 'like':
+          break;
+      }
     },
     handleAcceptRequest() {
       updaterequest(this.notification.source_id, REQUEST.STATUS.ACTIVE).then(response => {
@@ -113,6 +124,7 @@ export default {
 
 .notification-content {
   color: #9999aa;
+  cursor: pointer;
 }
 
 .request-button {
