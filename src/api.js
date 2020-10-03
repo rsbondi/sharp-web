@@ -132,6 +132,10 @@ function getcomment(comment_id) {
   return postApi('getcomment', {comment_id})
 }
 
+function getlike(id) {
+  return postApi('getlike', {id})
+}
+
 export {
   postApi,
   login,
@@ -158,5 +162,6 @@ export {
   actions,
   searchusers,
   user,
-  getcomment
+  getcomment,
+  getlike
 }

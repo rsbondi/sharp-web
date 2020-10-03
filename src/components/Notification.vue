@@ -19,7 +19,7 @@
 
 <script>
 import { showTime } from "../util";
-import { updaterequest } from "../api";
+import { updaterequest, getlike } from "../api";
 import { IMAGE_BASE_URL, REQUEST } from "../constants";
 export default {
   name: "Notification",
@@ -46,6 +46,11 @@ export default {
           })
           break;
         case 'like':
+          getlike(this.notification.source_id).then(response => {
+            this.$store.dispatch('setactivepost', {
+              post_id: response.like.item_id,
+            })
+          })
           break;
       }
     },
