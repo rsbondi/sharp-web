@@ -128,6 +128,10 @@ function user(user_id) {
   return postApi('user', {user_id})
 }
 
+function getcomment(comment_id) {
+  return postApi('getcomment', {comment_id})
+}
+
 export {
   postApi,
   login,
@@ -153,5 +157,6 @@ export {
   notifications,
   actions,
   searchusers,
-  user
+  user,
+  getcomment
 }

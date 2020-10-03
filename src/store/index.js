@@ -2,9 +2,10 @@ import { createStore } from 'vuex'
 import { PAGE } from '../constants'
 import {postApi, login, newuser, newgroup, joingroup, post,
   message, comment, follow, messages, feed, groupusers,
-  usersgroups, like, likes, offer, request, updaterequest, actions, user} from '../api'
+  usersgroups, like, likes, offer, request, updaterequest, actions, user,
+  getcomment} from '../api'
+  const pages = ["Feed", "Messages", "Notifications", "Profile", "Groups", "People", "Program", "Post"] // TODO: sloppy
 import { toISO8601String } from '../util'
-const pages = ["Feed", "Messages", "Notifications", "Profile", "Groups", "People", "Program"] // TODO: sloppy
 export default createStore({
   state: {
     currentPage: 0,
@@ -16,7 +17,9 @@ export default createStore({
     user: {},
     actions: [],
     messageTo: {},
-    messageMode: 'search'
+    messageMode: 'search',
+    activePost: -1,
+    activeComment: -1
   },
   mutations: {
     setpage(state, payload) {
@@ -91,6 +94,18 @@ export default createStore({
         context.commit('setcontent', {key:'messageMode', data:'chat'})
         context.commit('setmessageuser', selectedUser)
         context.commit('setpage', PAGE.MESSAGES)
+      } catch(e) {console.log(e)}
+    },
+    async setactivepost(context, payload) {
+      try {
+        if (payload.comment_id) {
+          context.commit('setcontent', {key:'activeComment', data: payload.comment_id})
+          const comment = await getcomment(payload.comment_id)
+          context.commit('setcontent', {key:'activePost', data: comment.comment.post_id})
+        } else {
+          context.commit('setcontent', {key:'activePost', data: payload.post_id})
+        }
+        context.commit('setpage', PAGE.POST)
       } catch(e) {console.log(e)}
     }
   },

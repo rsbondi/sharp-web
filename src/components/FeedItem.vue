@@ -44,12 +44,13 @@ import LikeIcon from './icons/LikeIcon'
 export default {
   name: 'FeedItem',
   props: {
-    post: Object
+    post: Object,
+    expandComments: Boolean
   },
   components: { Comment, CommentIcon, LikeIcon },
   data() {
     return {
-      showComments: false,
+      showComments: this.expandComments,
       IMAGE_BASE_URL,
       commentContent: ""
     }

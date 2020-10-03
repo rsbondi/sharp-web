@@ -6,6 +6,7 @@ export const PAGE = {
   GROUPS: 4,
   PEOPLE: 5,
   PROGRAM: 6,
+  POST: 7
 }
 
 export const LIKE = {

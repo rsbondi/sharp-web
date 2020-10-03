@@ -34,14 +34,16 @@ export default {
   },
   methods: {
     handleNotificationClick() {
-      console.log(this.notification)
       switch (this.notification.notification_type) {
         case 'message':
           // TODO: scroll to
           this.$store.dispatch('messageuser', {
             username: this.notification.username, user_id: this.notification.user_id})
           break;
-        case 'post':
+        case 'comment':
+          this.$store.dispatch('setactivepost', {
+            comment_id: this.notification.source_id,
+          })
           break;
         case 'like':
           break;
