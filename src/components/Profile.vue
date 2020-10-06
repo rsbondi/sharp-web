@@ -114,7 +114,11 @@ export default {
     uploadCover() {
       const formData = new FormData();
       formData.append("cover", this.coverFile, this.coverFile.name);
-      uploadUserImage(formData, "cover").then(console.log);
+      uploadUserImage(formData, "cover").then(response => {
+        if (response.success) {
+          this.user.cover_image = response.file
+        } else (console.log)
+      });
     },
     setMentor(e) {
       offer(1, e.target.checked).then(console.log).catch(console.error);
