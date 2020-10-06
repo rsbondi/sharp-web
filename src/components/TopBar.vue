@@ -61,16 +61,16 @@ export default {
   methods: {
     loadFeed(e) {
       e.preventDefault()
-      this.$store.dispatch("setpage", PAGE.FEED);
+      this.$router.push('/')
     },
     loadMessages() {
-      this.$store.dispatch("setpage", PAGE.MESSAGES);
+      this.$router.push('messages')
     },
     loadNotifications() {
-      this.$store.dispatch("setpage", PAGE.NOTIFICATIONS);
+      this.$router.push('notifications')
     },
     loadProfile() {
-      this.$store.dispatch("setpage", PAGE.PROFILE);
+      this.$router.push('profile')
     }
   },
     mounted() {
