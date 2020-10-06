@@ -67,20 +67,29 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+a {
+  text-decoration: none;
+  color: gray;
+}
+
+a:visited {
+  color: gray;
+}
+
 .menu {
   margin-top: 80px;
   width: 200px;
 }
 .menu-item {
   padding: 10px;
-  cursor: pointer;
 }
 .menu-item:hover {
   background-color: blanchedalmond;
 }
 
-.selected {
+a.router-link-active {
   color: blue;
+  font-weight: 600;
 }
 </style>
