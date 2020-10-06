@@ -39,9 +39,6 @@ export default {
         this.$store.dispatch('getfeed')
       }).catch(console.log)
     }
-  },
-  mounted() {
-    this.$store.dispatch("setpage", PAGE.FEED);
   }
 };
 </script>
