@@ -6,6 +6,7 @@ import {postApi, login, newuser, newgroup, joingroup, post,
   getcomment} from '../api'
   const pages = ["Feed", "Messages", "Notifications", "Profile", "Groups", "People", "Program", "Post"] // TODO: sloppy
 import { toISO8601String } from '../util'
+import router from '../router'
 export default createStore({
   state: {
     currentPage: 0,
@@ -93,7 +94,8 @@ export default createStore({
         selectedUser.username = payload.username
         context.commit('setcontent', {key:'messageMode', data:'chat'})
         context.commit('setmessageuser', selectedUser)
-        context.commit('setpage', PAGE.MESSAGES)
+        router.push('messages')
+        // context.commit('setpage', PAGE.MESSAGES)
       } catch(e) {console.log(e)}
     },
     async setactivepost(context, payload) {

@@ -2,12 +2,12 @@
   <TopBar></TopBar>
   <div class="flex-container">
     <NavMenu/>
-    <Feed v-show="currentComponent==='Feed'"/>
-    <Messages v-show="currentComponent==='Messages'"/>
-    <Profile v-show="currentComponent==='Profile'" />
-    <People v-if="currentComponent==='People'" />
-    <Notifications v-if="currentComponent==='Notifications'" />
-    <Post v-if="currentComponent==='Post'" />
+    <router-view>
+      <keep-alive>
+        <component :is="currentComponent" />
+      </keep-alive>
+    </router-view>
+
     <div class="fill">
       <Actions/>
     </div>

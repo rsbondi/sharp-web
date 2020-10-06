@@ -1,11 +1,23 @@
 <template>
   <div class="menu">
-    <div @click="changePage(PAGE.FEED)" class="menu-item" :class="page===PAGE.FEED ? 'selected' : ''">Home</div>
-    <div @click="changePage(PAGE.PROGRAM)" class="menu-item" :class="page===PAGE.PROGRAM ? 'selected' : ''">Program</div>
-    <div @click="changePage(PAGE.GROUPS)" class="menu-item" :class="page===PAGE.GROUPS ? 'selected' : ''">Groups</div>
-    <div @click="changePage(PAGE.NOTIFICATIONS)" class="menu-item" :class="page===PAGE.NOTIFICATIONS ? 'selected' : ''">Notifications</div>
-    <div @click="changePage(PAGE.MESSAGES)" class="menu-item" :class="page===PAGE.MESSAGES ? 'selected' : ''">Messages</div>
-    <div @click="changePage(PAGE.PEOPLE)" class="menu-item" :class="page===PAGE.PEOPLE ? 'selected' : ''">People</div>
+    <router-link to="/">
+      <div class="menu-item" :class="page===PAGE.FEED ? 'selected' : ''">Home</div>
+    </router-link>
+    <!-- <router-link to="/program"> -->
+      <div class="menu-item" :class="page===PAGE.PROGRAM ? 'selected' : ''">Program</div>
+    <!-- </router-link> -->
+    <!-- <router-link to="/groups"> -->
+      <div class="menu-item" :class="page===PAGE.GROUPS ? 'selected' : ''">Groups</div>
+    <!-- </router-link> -->
+    <router-link to="/notifications">
+      <div class="menu-item" :class="page===PAGE.NOTIFICATIONS ? 'selected' : ''">Notifications</div>
+    </router-link>
+    <router-link to="/messages">
+      <div class="menu-item" :class="page===PAGE.MESSAGES ? 'selected' : ''">Messages</div>
+    </router-link>
+    <router-link to="/people">
+      <div class="menu-item" :class="page===PAGE.PEOPLE ? 'selected' : ''">People</div>
+    </router-link>
   </div>
 </template>
 
@@ -27,7 +39,31 @@ export default {
     changePage(p) {
       this.$store.dispatch('setpage', p)
     }
-  }
+  },
+  watch:{
+    $route (to, from){
+      switch(to.path) {
+        case '/':
+          this.changePage(PAGE.FEED)
+          break;
+        case '/notifications':
+          this.changePage(PAGE.NOTIFICATIONS)
+          break;
+        case '/messages':
+          this.changePage(PAGE.MESSAGES)
+          break;
+        case '/people':
+          this.changePage(PAGE.PEOPLE)
+          break;
+        case '/profile':
+          this.changePage(PAGE.PROFILE)
+          break;
+        case 'post':
+          this.changePage(PAGE.POST)
+          break;
+      }
+    }
+} 
 }
 </script>
 
