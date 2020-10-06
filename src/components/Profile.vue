@@ -97,7 +97,11 @@ export default {
     uploadAvatar() {
       const formData = new FormData();
       formData.append("avatar", this.avatarFile, this.avatarFile.name);
-      uploadUserImage(formData, "avatar").then(console.log);
+      uploadUserImage(formData, "avatar").then(response => {
+        if (response.success) {
+          this.user.avatar_image = response.file
+        } else (console.log)
+      });
     },
     coverChanged(event) {
       this.coverFile = event.target.files[0];
