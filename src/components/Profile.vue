@@ -135,7 +135,6 @@ export default {
         this.mentor = !!~offerings.indexOf("1");
         this.user = data.info;
         this.$store.commit('setuser', data.info)
-        document.title = data.info.fullname;
       })
       .catch(console.error);
   },

@@ -41,6 +41,8 @@ import MessageIcon from "./icons/MessageIcon.vue";
 import MenuIcon from "./icons/MenuIcon.vue";
 import NotificationIcon from "./icons/NotificationIcon.vue";
 import { PAGE, IMAGE_BASE_URL, DEFAULT_AVATAR_URL } from '../constants'
+import { userinfo } from "../api";
+
 
 export default {
   components: {
@@ -71,6 +73,16 @@ export default {
       this.$store.dispatch("setpage", PAGE.PROFILE);
     }
   },
+    mounted() {
+    userinfo()
+      .then((data) => {
+        this.user = data.info;
+        this.$store.commit('setuser', data.info)
+        document.title = data.info.fullname;
+      })
+      .catch(console.error);
+  },
+
 };
 </script>
 
