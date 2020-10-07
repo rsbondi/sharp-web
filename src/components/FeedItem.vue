@@ -3,7 +3,7 @@
     <div class="feed-img-container" v-if="post.avatar_image">
       <img class="feed-avatar-img" :src="`${IMAGE_BASE_URL}/${post.avatar_image}`"/>
     </div>
-    {{post.fullname}}  <a href="" @click.prevent="setProfileUser"><em>{{post.username}}</em></a>
+    {{post.fullname}}  <ProfileLink :user="post" />
   </div>
   <div>
     {{showTime(post.created_at)}}
@@ -36,6 +36,7 @@
 <script>
 import { showTime } from '../util'
 import Comment from './Comment.vue'
+import ProfileLink from './ProfileLink.vue'
 import { IMAGE_BASE_URL, LIKE } from '../constants'
 import { comment, like } from "../api"
 import CommentIcon from './icons/CommentIcon'
@@ -47,7 +48,7 @@ export default {
     post: Object,
     expandComments: Boolean
   },
-  components: { Comment, CommentIcon, LikeIcon },
+  components: { Comment, CommentIcon, LikeIcon, ProfileLink },
   data() {
     return {
       showComments: this.expandComments,
@@ -85,11 +86,6 @@ export default {
           } 
         }
       }).catch(console.log)
-    },
-    setProfileUser() {
-      console.log('profile user', this.post)
-      this.$store.commit('setcontent', {key: 'profileUser', data: this.post.user_id})
-      this.$router.push('/profile')
     }
   }
 }
