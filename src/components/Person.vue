@@ -6,7 +6,7 @@
     <div class="person-img-container" v-if="!person.avatar_image">
       <div class="person-avatar-img">&nbsp;</div>
     </div>
-    {{person.fullname}} <em>{{person.username}}</em>
+    {{person.fullname}} <ProfileLink :user="profileUser" />
     <div class="flex-container">
       <div>Total posts: {{person.posts}}</div>
       <div>Likes received: {{person.likes}}</div>
@@ -30,11 +30,15 @@
 <script>
 import { IMAGE_BASE_URL, REQUEST } from '../constants'
 import { request, follow } from '../api'
+import ProfileLink from './ProfileLink.vue'
 
 export default {
   name: "Person",
   props: {
     person: Object
+  },
+  components: {
+    ProfileLink
   },
   data() {
     return {
@@ -55,6 +59,9 @@ export default {
     isMentor() {
       return !!~this.person.requests.split(',').indexOf(''+REQUEST.TYPE.MENTOR)
     },
+    profileUser() {
+      return {username: this.person.username, user_id: this.person.id}
+    }
   },
   methods: {
     requestAccountability() {
