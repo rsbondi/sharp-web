@@ -20,7 +20,9 @@ export default createStore({
     messageTo: {},
     messageMode: 'search',
     activePost: -1,
-    activeComment: -1
+    activeComment: -1,
+    profileUser: -1,
+    avatar_image: ''
   },
   mutations: {
     setpage(state, payload) {

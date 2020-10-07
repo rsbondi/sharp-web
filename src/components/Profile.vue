@@ -21,7 +21,11 @@
     </div>
     <div>
       <label>
-        <input type="checkbox" v-model="mentor" @click="setMentor" /> Available
+        <input 
+          type="checkbox" 
+          @click="setMentor"
+          v-model="mentor" 
+          :disabled="~$store.state.profileUser" /> Available
         to mentor
       </label>
     </div>
@@ -31,6 +35,7 @@
           type="checkbox"
           v-model="accountability"
           @click="setAccountability"
+          :disabled="~$store.state.profileUser"
         />
         Available for accountability
       </label>
@@ -81,9 +86,15 @@ export default {
         ? `${IMAGE_BASE_URL}/${this.user.cover_image}`
         : DEFAULT_COVER_URL
     },
+    profileUser() {
+      return this.$store.state.profileUser
+    }
   },
-  watch() {
-    feedContent: () => {};
+  watch: {
+    feedContent() {},
+
+    profileUser() { this.getProfile() } 
+
   },
   methods: {
     avatarChanged(event) {
@@ -126,18 +137,23 @@ export default {
     setAccountability(e) {
       offer(0, e.target.checked).then(console.log).catch(console.error);
     },
-  },
-  mounted() {
-    userinfo()
-      .then((data) => {
-        const offerings = data.info.offerings.split(",");
-        this.accountability = !!~offerings.indexOf("0");
-        this.mentor = !!~offerings.indexOf("1");
-        this.user = data.info;
-        this.$store.commit('setuser', data.info)
+    getProfile() {
+      const user_id = this.$store.state.profileUser === -1 ? null : this.$store.state.profileUser
+      userinfo(user_id)
+        .then((data) => {
+          const offerings = data.info.offerings.split(",");
+          this.accountability = !!~offerings.indexOf("0");
+          this.mentor = !!~offerings.indexOf("1");
+          this.user = data.info;
+          this.$store.commit('setuser', data.info)
       })
       .catch(console.error);
+    }
   },
+  mounted() {
+    this.getProfile()
+},
+  
 };
 </script>
 

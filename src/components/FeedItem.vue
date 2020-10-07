@@ -3,7 +3,7 @@
     <div class="feed-img-container" v-if="post.avatar_image">
       <img class="feed-avatar-img" :src="`${IMAGE_BASE_URL}/${post.avatar_image}`"/>
     </div>
-    {{post.fullname}} <em>{{post.username}}</em>
+    {{post.fullname}}  <a href="" @click.prevent="setProfileUser"><em>{{post.username}}</em></a>
   </div>
   <div>
     {{showTime(post.created_at)}}
@@ -85,6 +85,11 @@ export default {
           } 
         }
       }).catch(console.log)
+    },
+    setProfileUser() {
+      console.log('profile user', this.post)
+      this.$store.commit('setcontent', {key: 'profileUser', data: this.post.user_id})
+      this.$router.push('/profile')
     }
   }
 }

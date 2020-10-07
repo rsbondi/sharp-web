@@ -53,8 +53,8 @@ export default {
   },
   computed: {
     avatarUrl() {
-      return this.$store.state.user.avatar_image ?
-        `${IMAGE_BASE_URL}/${this.$store.state.user.avatar_image}` :
+      return this.$store.state.avatar_image ?
+        `${IMAGE_BASE_URL}/${this.$store.state.avatar_image}` :
         DEFAULT_AVATAR_URL // TODO default
     }
   },
@@ -70,6 +70,7 @@ export default {
       this.$router.push('notifications')
     },
     loadProfile() {
+      this.$store.commit('setcontent', {key: 'profileUser', data: -1})
       this.$router.push('profile')
     }
   },
@@ -78,6 +79,7 @@ export default {
       .then((data) => {
         this.user = data.info;
         this.$store.commit('setuser', data.info)
+        this.$store.commit('setcontent', {key: 'avatar_image', data: data.info.avatar_image})
         document.title = data.info.fullname;
       })
       .catch(console.error);
