@@ -4,7 +4,7 @@
       <div class="notification-img-container" v-if="notification.avatar_image">
         <img class="notification-avatar-img" :src="`${IMAGE_BASE_URL}/${notification.avatar_image}`" />
       </div>
-      {{notification.fullname}}&nbsp;
+      {{notification.fullname}} <ProfileLink :user="notification" />&nbsp;
       {{notificationText}}
       <button class="request-button" v-if="enableAcceptButton" @click="handleAcceptRequest">
         Accept request
@@ -21,6 +21,8 @@
 import { showTime } from "../util";
 import { updaterequest, getlike } from "../api";
 import { IMAGE_BASE_URL, REQUEST } from "../constants";
+import ProfileLink from './ProfileLink.vue'
+
 export default {
   name: "Notification",
   data() {
@@ -32,6 +34,7 @@ export default {
   props: {
     notification: Object
   },
+  components: { ProfileLink },
   methods: {
     handleNotificationClick() {
       switch (this.notification.notification_type) {
