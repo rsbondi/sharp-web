@@ -4,11 +4,11 @@
     <div class="profile">
       <div class="profile-img">
         <label for="cover-input">
-          <img class="cover-image" :src="coverUrl" />
+          <img class="cover-image" :src="coverUrl"  :class="okclick" />
         </label>
         <input id="cover-input" type="file" @change="coverChanged" />
 
-        <div class="profile-avatar">
+        <div class="profile-avatar" :class="okclick">
           <label for="avatar-input">
             <img
               :src="avatarUrl"
@@ -88,6 +88,9 @@ export default {
     },
     profileUser() {
       return this.$store.state.profileUser
+    },
+    okclick() {
+      return ~this.$store.state.profileUser ? 'nope' : ''
     }
   },
   watch: {
@@ -200,5 +203,9 @@ export default {
 .cover-image {
   width: 800px;
   height: 400px;
+}
+
+.nope {
+  pointer-events: none;
 }
 </style>
