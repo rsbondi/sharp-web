@@ -24,6 +24,7 @@ import People from "./People"
 import Notifications from "./Notifications.vue";
 import Actions from "./Actions.vue";
 import Post from "./Post.vue";
+import Follows from "./Follows.vue"
 
 export default {
   name: "Main",
@@ -36,7 +37,8 @@ export default {
     People,
     Notifications,
     Actions,
-    Post
+    Post,
+    Follows,
   },
   data() {
     return {

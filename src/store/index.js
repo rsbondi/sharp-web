@@ -1,10 +1,9 @@
 import { createStore } from 'vuex'
-import { PAGE } from '../constants'
+import { PAGE, PAGE_COMPONENTS } from '../constants'
 import {postApi, login, newuser, newgroup, joingroup, post,
   message, comment, follow, messages, feed, groupusers,
   usersgroups, like, likes, offer, request, updaterequest, actions, user,
   getcomment} from '../api'
-  const pages = ["Feed", "Messages", "Notifications", "Profile", "Groups", "People", "Program", "Post"] // TODO: sloppy
 import { toISO8601String } from '../util'
 import router from '../router'
 export default createStore({
@@ -22,12 +21,14 @@ export default createStore({
     activePost: -1,
     activeComment: -1,
     profileUser: -1,
-    avatar_image: ''
+    avatar_image: '',
+    currentUser: -1,
+    currentList: ''
   },
   mutations: {
     setpage(state, payload) {
       state.currentPage = payload
-      state.currentComponent = pages[payload]
+      state.currentComponent = PAGE_COMPONENTS[payload]
     },
     setcontent(state, payload) {
       state[payload.key] = payload.data

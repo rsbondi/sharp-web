@@ -6,8 +6,21 @@ export const PAGE = {
   GROUPS: 4,
   PEOPLE: 5,
   PROGRAM: 6,
-  POST: 7
+  POST: 7,
+  FOLLOWS: 8,
 }
+
+export const PAGE_COMPONENTS = [
+  "Feed", 
+  "Messages", 
+  "Notifications", 
+  "Profile", 
+  "Groups", 
+  "People", 
+  "Program", 
+  "Post",
+  "Follows"
+]
 
 export const LIKE = {
   POST: 0,

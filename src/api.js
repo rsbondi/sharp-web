@@ -136,6 +136,10 @@ function getlike(id) {
   return postApi('getlike', {id})
 }
 
+function follows(user_id) {
+  return postApi('follows', {user_id})
+}
+
 export {
   postApi,
   login,
@@ -163,5 +167,6 @@ export {
   searchusers,
   user,
   getcomment,
-  getlike
+  getlike,
+  follows
 }

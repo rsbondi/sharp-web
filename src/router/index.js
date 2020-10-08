@@ -5,6 +5,7 @@ import Profile from "../components/Profile.vue"
 import People from "../components/People"
 import Notifications from "../components/Notifications.vue";
 import Post from "../components/Post.vue";
+import Follows from "../components/Follows.vue"
 
 const routes = [
   {
@@ -30,6 +31,10 @@ const routes = [
   {
     path: '/post',
     component: Post
+  },
+  {
+    path: '/follows',
+    component: Follows
   },
 ]
 
