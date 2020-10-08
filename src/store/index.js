@@ -3,7 +3,7 @@ import { PAGE, PAGE_COMPONENTS } from '../constants'
 import {postApi, login, newuser, newgroup, joingroup, post,
   message, comment, follow, messages, feed, groupusers,
   usersgroups, like, likes, offer, request, updaterequest, actions, user,
-  getcomment} from '../api'
+  getcomment, userposts} from '../api'
 import { toISO8601String } from '../util'
 import router from '../router'
 export default createStore({
@@ -11,6 +11,7 @@ export default createStore({
     currentPage: 0,
     content: {},
     feed: {posts: []},
+    posts: [],
     messages: {messages: []},
     currentComponent: "Feed",
     auth: false, // this is for ui, actual requires macaroon
@@ -67,8 +68,10 @@ export default createStore({
       let data
       switch (payload) {
         case PAGE.FEED:
-        case PAGE.PROFILE:
           await updateFeed(context)
+          break;
+        case PAGE.PROFILE:
+          await updateFeed(context, true)
           break;
         case PAGE.MESSAGES:
           data = await messages()
@@ -118,13 +121,20 @@ export default createStore({
   }
 })
 
-async function updateFeed(context) {
-  const data = await feed(context.state.feed.posts.last)
-  if (data.posts.length) {
-    const posts = [...context.state.feed.posts]
-    posts.unshift(...data.posts)
-    posts.last = toISO8601String(new Date())
-    context.commit('setcontent', {key:'feed', data: {posts}})
+async function updateFeed(context, user_posts) {
+  let data
+  if (user_posts) {
+    const user_id = ~context.state.profileUser ? context.state.profileUser : null
+    data = await userposts(user_id)
+    context.commit('setcontent', {key:'posts', data: data.posts})
+  } else {
+    data = await feed(context.state.feed.posts.last)
+    if (data.posts.length) {
+      const posts = [...context.state.feed.posts]
+      posts.unshift(...data.posts)
+      posts.last = toISO8601String(new Date())
+      context.commit('setcontent', {key:'feed', data: {posts}})
+    }
   }
 
 }

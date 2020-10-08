@@ -140,6 +140,10 @@ function follows(user_id) {
   return postApi('follows', {user_id})
 }
 
+function userposts(user_id) {
+  return postApi('userposts', {user_id})
+}
+
 export {
   postApi,
   login,
@@ -168,5 +172,6 @@ export {
   user,
   getcomment,
   getlike,
-  follows
+  follows,
+  userposts
 }

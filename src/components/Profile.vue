@@ -47,7 +47,7 @@
 
     <div class="feed">
       <ul>
-        <li v-for="post in feedContent.posts" :key="post.id">
+        <li v-for="post in feedContent" :key="post.id">
           <FeedItem :post="post" />
         </li>
       </ul>
@@ -78,7 +78,7 @@ export default {
   },
   computed: {
     feedContent() {
-      return this.$store.state.feed;
+      return this.$store.state.posts;
     },
     // TODO: default image
     avatarUrl() {
