@@ -34,4 +34,8 @@ export default {
     margin-top: 1em;
     width: 100px;
   }
+
+  .fullname {
+    font-size: 1.15em;
+  }
 </style>

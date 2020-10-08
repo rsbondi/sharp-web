@@ -41,6 +41,10 @@
       </label>
     </div>
 
+    <div class="info-wrapper">
+      <UserInfo :user="user" />
+    </div>
+
     <div class="feed">
       <ul>
         <li v-for="post in feedContent.posts" :key="post.id">
@@ -53,13 +57,14 @@
 
 <script>
 import FeedItem from "./FeedItem";
+import UserInfo from "./UserInfo";
 import { post, uploadUserImage, offer, userinfo } from "../api";
 import { IMAGE_BASE_URL, DEFAULT_AVATAR_URL, DEFAULT_COVER_URL } from "../constants";
 
 export default {
   name: "Profile",
   components: {
-    FeedItem,
+    FeedItem, UserInfo
   },
   data() {
     return {
@@ -160,7 +165,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .profile-avatar {
   bottom: -50px;
   position: absolute;
@@ -208,4 +213,14 @@ export default {
 .nope {
   pointer-events: none;
 }
+
+.profile-info {
+  margin-top: 20px;
+}
+
+.info-wrapper {
+  margin-top: 16px;
+  text-align: center;
+}
+
 </style>
