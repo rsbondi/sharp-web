@@ -114,6 +114,7 @@ export default {
 
 .feedback-item {
   float: left;
+  cursor: pointer;
 }
 
 .feedback-value {
