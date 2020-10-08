@@ -108,8 +108,9 @@ function userinfo(user_id) {
   return postApi('userinfo', {user_id})
 }
 
-function userlist() {
-  return postApi('userlist', {})
+function userlist(filter) {
+  if (!filter) filter = {}
+  return postApi('userlist', filter)
 }
 
 function notifications() {
