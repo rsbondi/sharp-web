@@ -70,6 +70,7 @@ export default {
 }
 .noshow {
   height: 0;
+  overflow: hidden;
 }
 .person-avatar-img {
   height: 50px;
