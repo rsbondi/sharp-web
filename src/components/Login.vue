@@ -24,6 +24,7 @@ export default {
         if (response.success) {
           localStorage.setItem("macaroon", response.macaroon);
           this.$store.commit('setauth', true)
+          this.$router.push('/')
         }
       });
     },

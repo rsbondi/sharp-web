@@ -25,6 +25,7 @@ export default {
   mounted() {
     const auth = localStorage.getItem('macaroon')
     if (auth) this.$store.commit('setauth', true)
+    else this.$router.push('/login')
   }
 
 }
