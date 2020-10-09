@@ -10,7 +10,7 @@ export default createStore({
     content: {},
     feed: {posts: []},
     posts: [],
-    messages: {messages: []},
+    messages: [],
     notifications: [],
     currentComponent: "Feed",
     auth: false, // this is for ui, actual requires macaroon
@@ -41,25 +41,25 @@ export default createStore({
       state.user = payload
     },
     addmessageuser(state, payload) {
-      if (!(payload.username in state.messages.messages)) {
-        const newState = {...state.messages.messages}
+      if (!(payload.username in state.messages)) {
+        const newState = {...state.messages}
         newState[payload.username] = {...payload, name: payload.fullname, messages: payload.messages || []}
-        state.messages.messages = newState
+        state.messages = newState
       }
     },
     addmessage(state, payload) {
       const { content, message_id, mine, created_at } = payload
-      const newState = {...state.messages.messages}
+      const newState = {...state.messages}
       newState[payload.username].messages
         .unshift({content, message_id, mine, created_at})
-      state.messages.messages = newState
+      state.messages = newState
     },
     getactions(state, payload) {
       state.actions = payload
     },
     setmessageuser(state, payload) {
-      if (payload.username in state.messages.messages) {
-        state.messageTo = state.messages.messages[payload.username]
+      if (payload.username in state.messages) {
+        state.messageTo = state.messages[payload.username]
       } else state.messageTo = payload
     } 
   },
@@ -74,8 +74,8 @@ export default createStore({
           await updateFeed(context, true)
           break;
         case PAGE.MESSAGES:
-          if (context.state.messages.messages) data = await messages()
-          context.commit('setcontent', {key:'messages', data})
+          if (context.state.messages) data = await messages()
+          context.commit('setcontent', {key:'messages', data: data.messages})
           break;
         case PAGE.NOTIFICATIONS:
           notifications().then((data) => {
@@ -116,10 +116,10 @@ export default createStore({
         context.commit('setcontent', {key:'messages', data: {messages: null}})
         await router.push('messages')
         const data = await messages()
-        context.commit('setcontent', {key:'messages', data})
+        context.commit('setcontent', {key:'messages', data: data.messages})
         const userResponse = await user(payload.user_id)
         context.commit('addmessageuser', userResponse.user)
-        const selectedUser = context.state.messages.messages[payload.username]
+        const selectedUser = context.state.messages[payload.username]
         selectedUser.username = payload.username
         context.commit('setcontent', {key:'messageMode', data:'chat'})
         context.commit('setmessageuser', selectedUser)

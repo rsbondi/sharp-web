@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     selectedUser(u) {
-      const user = this.$store.state.messages.messages[u];
+      const user = this.$store.state.messages[u];
       user.username = u
       this.$store.commit('setmessageuser', user)
       console.log(user)
@@ -137,7 +137,7 @@ export default {
   },
   computed: {
     messageContent() {
-      return this.$store.state.messages.messages;
+      return this.$store.state.messages;
     },
     userSelected() {
       return typeof this.user.id != 'undefined'
