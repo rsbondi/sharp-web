@@ -74,7 +74,7 @@ export default createStore({
           await updateFeed(context, true)
           break;
         case PAGE.MESSAGES:
-          data = await messages()
+          if (context.state.messages.messages) data = await messages()
           context.commit('setcontent', {key:'messages', data})
           break;
         case PAGE.NOTIFICATIONS:
@@ -113,6 +113,8 @@ export default createStore({
     },
     async messageuser(context, payload) {
       try {
+        context.commit('setcontent', {key:'messages', data: {messages: null}})
+        await router.push('messages')
         const data = await messages()
         context.commit('setcontent', {key:'messages', data})
         const userResponse = await user(payload.user_id)
@@ -121,8 +123,6 @@ export default createStore({
         selectedUser.username = payload.username
         context.commit('setcontent', {key:'messageMode', data:'chat'})
         context.commit('setmessageuser', selectedUser)
-        router.push('messages')
-        // context.commit('setpage', PAGE.MESSAGES)
       } catch(e) {console.log(e)}
     },
     async setactivepost(context, payload) {
