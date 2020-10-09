@@ -83,7 +83,6 @@ export default {
       const user = this.$store.state.messages[u];
       user.username = u
       this.$store.commit('setmessageuser', user)
-      console.log(user)
       this.$store.commit('setcontent', {key:'messageMode', data: 'chat'})
       this.message = ''
     },

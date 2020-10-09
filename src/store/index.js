@@ -74,7 +74,7 @@ export default createStore({
           await updateFeed(context, true)
           break;
         case PAGE.MESSAGES:
-          if (context.state.messages) data = await messages()
+          if (!context.state.messages.length) data = await messages()
           context.commit('setcontent', {key:'messages', data: data.messages})
           break;
         case PAGE.NOTIFICATIONS:
@@ -113,7 +113,7 @@ export default createStore({
     },
     async messageuser(context, payload) {
       try {
-        context.commit('setcontent', {key:'messages', data: {messages: null}})
+        context.commit('setcontent', {key:'messages', data: {messages: []}})
         await router.push('messages')
         const data = await messages()
         context.commit('setcontent', {key:'messages', data: data.messages})
