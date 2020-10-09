@@ -145,6 +145,14 @@ function userposts(user_id) {
   return postApi('userposts', {user_id})
 }
 
+function newnotifications() {
+  return postApi('newnotifications', {})
+}
+
+function seeall() {
+  return postApi('seeall', {})
+}
+
 export {
   postApi,
   login,
@@ -174,5 +182,7 @@ export {
   getcomment,
   getlike,
   follows,
-  userposts
+  userposts,
+  newnotifications,
+  seeall
 }

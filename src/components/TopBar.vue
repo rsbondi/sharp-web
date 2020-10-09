@@ -19,8 +19,9 @@
         <div class="topbar-icons">
           <MessageIcon @click="loadMessages"/>
         </div>
-        <div class="topbar-icons">
-          <NotificationIcon @click="loadNotifications" />
+        <div class="topbar-icons notification-wrapper" @click="loadNotifications">
+          <NotificationIcon />
+          <div v-show="unseen" class="unseen">{{unseen}}</div>
         </div>
         <button class="topbar-avatar-icon" @click="loadProfile">
           <div class="topbar-icons topbar-avatar">
@@ -56,6 +57,9 @@ export default {
       return this.$store.state.avatar_image ?
         `${IMAGE_BASE_URL}/${this.$store.state.avatar_image}` :
         DEFAULT_AVATAR_URL // TODO default
+    },
+    unseen() {
+      return this.$store.state.unseen
     }
   },
   methods: {
@@ -87,4 +91,25 @@ export default {
 
 };
 </script>
+
+<style scoped>
+.unseen {
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  top: 9px;
+  left: 9px;
+  color: white;
+  width: 20px;
+  height: 16px;
+  text-align: center;
+  padding-top: 4px;
+  font-size: 0.7em;
+  cursor: pointer;
+}
+
+.notification-wrapper {
+  position: relative
+}
+</style>
 

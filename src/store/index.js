@@ -1,9 +1,7 @@
 import { createStore } from 'vuex'
 import { PAGE, PAGE_COMPONENTS } from '../constants'
-import {postApi, login, newuser, newgroup, joingroup, post,
-  message, comment, follow, messages, feed, groupusers,
-  usersgroups, like, likes, offer, request, updaterequest, actions, user,
-  getcomment, userposts} from '../api'
+import {messages, feed, actions, user, notifications,
+  getcomment, userposts, newnotifications, seeall} from '../api'
 import { toISO8601String } from '../util'
 import router from '../router'
 export default createStore({
@@ -13,6 +11,7 @@ export default createStore({
     feed: {posts: []},
     posts: [],
     messages: {messages: []},
+    notifications: [],
     currentComponent: "Feed",
     auth: false, // this is for ui, actual requires macaroon
     user: {},
@@ -24,7 +23,8 @@ export default createStore({
     profileUser: -1,
     avatar_image: '',
     currentUser: -1,
-    currentList: ''
+    currentList: '',
+    unseen: 0,
   },
   mutations: {
     setpage(state, payload) {
@@ -78,12 +78,33 @@ export default createStore({
           context.commit('setcontent', {key:'messages', data})
           break;
         case PAGE.NOTIFICATIONS:
+          notifications().then((data) => {
+            if (data.success) {
+              context.state.notifications = data.notifications;
+              context.dispatch('seeall')
+            }
+          }).catch(console.error);
+      
           break;
       }
       context.commit('setpage', payload)
     },
     async getfeed(context, payload) {
       await updateFeed(context)
+    },
+    newnotifications(context) {
+      newnotifications().then(result => {
+        if (result.success) {
+          context.state.unseen = result.unseen
+        }
+      })
+    },
+    seeall(context) {
+      seeall().then(result => {
+        if (result.success) {
+          context.state.unseen = 0
+        }
+      })
     },
     getactions(context, payload) {
       actions().then(response => {

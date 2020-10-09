@@ -61,7 +61,8 @@ export default {
           break;
         
       }
-    }, 15000)
+      this.$store.dispatch('newnotifications')
+    }, 30000)
   }
 };
 </script>
