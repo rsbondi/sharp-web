@@ -3,7 +3,7 @@
     {{comment.fullname}} <em>{{comment.username}}</em>
   </div>
   <div>
-    {{showTime(comment.created_at)}}
+    <Time :created_at="comment.created_at" />
   </div>
   <div class="comment-content">
     {{comment.content}}
@@ -14,15 +14,13 @@
 </template>
 
 <script>
-import { showTime } from '../util'
+import Time from './Time.vue'
 export default {
   name: 'Comment',
   props: {
     comment: Object
   },
-  methods: {
-    showTime: showTime
-  }
+  components: { Time }
 }
 </script>
 

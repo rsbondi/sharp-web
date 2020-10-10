@@ -25,6 +25,7 @@ export default createStore({
     currentUser: -1,
     currentList: '',
     unseen: 0,
+    timer: new Date(),
   },
   mutations: {
     setpage(state, payload) {

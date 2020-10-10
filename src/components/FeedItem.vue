@@ -6,7 +6,7 @@
     {{post.fullname}}  <ProfileLink :user="post" />
   </div>
   <div>
-    {{showTime(post.created_at)}}
+    <Time :created_at="post.created_at" />
   </div>
   <div class="post-content">
     {{post.content}}
@@ -34,9 +34,9 @@
 </template>
 
 <script>
-import { showTime } from '../util'
 import Comment from './Comment.vue'
 import ProfileLink from './ProfileLink.vue'
+import Time from './Time.vue'
 import { IMAGE_BASE_URL, LIKE } from '../constants'
 import { comment, like } from "../api"
 import CommentIcon from './icons/CommentIcon'
@@ -48,7 +48,7 @@ export default {
     post: Object,
     expandComments: Boolean
   },
-  components: { Comment, CommentIcon, LikeIcon, ProfileLink },
+  components: { Comment, CommentIcon, LikeIcon, ProfileLink, Time },
   data() {
     return {
       showComments: this.expandComments,
@@ -65,7 +65,6 @@ export default {
     toggleComments() {
       this.showComments = !this.showComments
     },
-    showTime: showTime,
     doComment() {
       comment(this.commentContent, this.post.id).then(response => {
         this.commentContent = ""

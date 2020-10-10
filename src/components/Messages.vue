@@ -51,7 +51,7 @@
                 {{message.content}}
               </div>
               <div class="msgtime clear" :class="message.mine ? 'mytime' : 'theirtime'">
-                {{showTime(message.created_at)}}
+                <Time :created_at="message.created_at"/>
               </div>
             </li>
           </ul>
@@ -62,13 +62,13 @@
 </template>
 
 <script>
-import { showTime } from '../util'
 import { message, searchusers } from "../api"
 import { IMAGE_BASE_URL } from '../constants'
+import Time from './Time.vue'
 
 export default {
   name: "Messages",
-  components: {},
+  components: {Time},
   data() {
     return {
       message: "",
@@ -86,7 +86,6 @@ export default {
       this.$store.commit('setcontent', {key:'messageMode', data: 'chat'})
       this.message = ''
     },
-    showTime: showTime,
     doMessage() {
       message(this.message, this.user.id).then(response => {
         if (response.success) {

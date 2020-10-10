@@ -62,6 +62,7 @@ export default {
         
       }
       this.$store.dispatch('newnotifications')
+      this.$store.commit('setcontent', {key: "timer", data: new Date()})
     }, 30000)
   }
 };

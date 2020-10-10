@@ -9,7 +9,7 @@
       <button class="request-button" v-if="enableAcceptButton" @click="handleAcceptRequest">
         Accept request
       </button>
-      <div>{{showTime(notification.created_at)}}</div>
+      <div><Time :created_at="notification.created_at" /></div>
       <div v-if="showContent">
         <div @click="handleNotificationClick" class="notification-content">{{notification.content}}</div>
       </div>
@@ -18,23 +18,22 @@
 </template>
 
 <script>
-import { showTime } from "../util";
 import { updaterequest, getlike } from "../api";
 import { IMAGE_BASE_URL, REQUEST } from "../constants";
 import ProfileLink from './ProfileLink.vue'
+import Time from './Time'
 
 export default {
   name: "Notification",
   data() {
     return {
       IMAGE_BASE_URL,
-      showTime: showTime
     };
   },
   props: {
     notification: Object
   },
-  components: { ProfileLink },
+  components: { ProfileLink, Time },
   methods: {
     handleNotificationClick() {
       switch (this.notification.notification_type) {
