@@ -36,8 +36,8 @@ function login(username, password) {
   return postApi('login', {username, password})
 }
 
-function newuser(username, password) {
-  return postApi('newuser', {username, password})
+function newuser(username, password, fullname, email) {
+  return postApi('newuser', {username, password, fullname, email})
 }
 
 function newgroup(name, description) {
