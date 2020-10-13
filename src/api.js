@@ -153,6 +153,10 @@ function seeall() {
   return postApi('seeall', {})
 }
 
+function addprogram(program) {
+  return postApi('addprogram', program)
+}
+
 export {
   postApi,
   login,
@@ -184,5 +188,6 @@ export {
   follows,
   userposts,
   newnotifications,
-  seeall
+  seeall,
+  addprogram,
 }

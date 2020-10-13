@@ -226,7 +226,8 @@ button {
   text-align: left;
 }
 
-input[type="text"], input[type="password"] {
+input[type="text"], input[type="password"], 
+input[type="number"], textarea {
   outline: 0;
   height: 40px;
   width: 100%;

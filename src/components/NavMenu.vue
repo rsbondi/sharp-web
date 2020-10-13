@@ -3,9 +3,9 @@
     <router-link to="/">
       <div class="menu-item" :class="page===PAGE.FEED ? 'selected' : ''">Home</div>
     </router-link>
-    <!-- <router-link to="/program"> -->
+    <router-link to="/program">
       <div class="menu-item" :class="page===PAGE.PROGRAM ? 'selected' : ''">Program</div>
-    <!-- </router-link> -->
+    </router-link>
     <!-- <router-link to="/groups"> -->
       <div class="menu-item" :class="page===PAGE.GROUPS ? 'selected' : ''">Groups</div>
     <!-- </router-link> -->
@@ -58,8 +58,11 @@ export default {
         case '/profile':
           this.changePage(PAGE.PROFILE)
           break;
-        case 'post':
+        case '/post':
           this.changePage(PAGE.POST)
+          break;
+        case '/program':
+          this.changePage(PAGE.PROGRAM)
           break;
       }
     }
