@@ -157,6 +157,10 @@ function addprogram(program) {
   return postApi('addprogram', program)
 }
 
+function programs(program) {
+  return getApi('programs')
+}
+
 export {
   postApi,
   login,
@@ -190,4 +194,5 @@ export {
   newnotifications,
   seeall,
   addprogram,
+  programs,
 }
