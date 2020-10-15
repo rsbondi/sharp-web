@@ -11,15 +11,15 @@
   import { programs } from '../api'
   import ProgramItem from './ProgramItem'
 export default {
-  data() {
-    return {
-      programs: []
+  computed: {
+    programs() {
+      return this.$store.state.programs
     }
   },
   components: { ProgramItem },
   mounted() {
     programs().then(result => {
-      this.programs = result.programs
+      this.$store.commit('setcontent', {key: 'programs', data: result.programs})
     }) 
   }
 }

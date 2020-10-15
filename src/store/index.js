@@ -12,6 +12,7 @@ export default createStore({
     posts: [],
     messages: [],
     notifications: [],
+    programs: [],
     currentComponent: "Feed",
     auth: false, // this is for ui, actual requires macaroon
     user: {},

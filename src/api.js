@@ -161,6 +161,10 @@ function programs(program) {
   return getApi('programs')
 }
 
+function participate(program_id) {
+  return postApi('participate', {program_id})
+}
+
 export {
   postApi,
   login,
@@ -195,4 +199,5 @@ export {
   seeall,
   addprogram,
   programs,
+  participate,
 }
