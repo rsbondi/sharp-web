@@ -1,7 +1,7 @@
 <template>
   <div class="body-component">
     <h2>Create Program</h2>
-    <form id="login-form" @submit.prevent="doCreate">
+    <form @submit.prevent="doCreate">
       <h3>Initial Phase</h3>
       <div class="phase">
         <div class="flex-container">
