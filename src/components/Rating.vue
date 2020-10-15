@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-container">
+  <div>
     <div 
       class="star" 
       :class="rating > 0 ? 'full' : 'empty'"
@@ -35,6 +35,7 @@
       >
       <Star/>
     </div>
+    <div class="star ratings">({{nratings}})</div>
   </div>
 </template>
 
@@ -43,10 +44,10 @@ import Star from './icons/Star.vue'
 import StarHalf from './icons/StarHalf.vue'
 export default {
   components: { Star },
-  data() {
-    return {
-      rating: 0
-    }
+  props: {
+    rating: Number,
+    nratings: Number,
+    type: Number
   },
   methods: {
     rateit(n) {
@@ -66,5 +67,9 @@ export default {
   }
   .full {
     fill: gray;
+  }
+  .ratings {
+    padding-top: 0.2em;
+    padding-left: 0.5em;
   }
 </style>

@@ -32,15 +32,19 @@
           <div class="userinfo">
             {{ program.fullname }} 
             <ProfileLink :user="program" />
-            <button @click="messageContact" class="action-primary">Message</button>
+            <button v-if="!program.creator" @click="messageContact" class="action-primary">Message</button>
 
           </div>
           <div style="clear:both"></div>
         </div>
-        <div class="about stars">
+        <div class="about">
           <strong>Rating</strong><br>
-          <div>
-            <Rating />
+          <div class="stars">
+            <Rating 
+              :rating="program.rating" 
+              :nratings="program.nratings"
+              :type="0"
+            />
           </div>
         </div>
       </div>
