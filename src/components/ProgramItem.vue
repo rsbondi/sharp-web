@@ -45,6 +45,7 @@
               :rating="program.rating" 
               :nratings="program.nratings"
               :type="0"
+              :readonly="!mine"
             />
           </div>
         </div>

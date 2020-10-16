@@ -1,5 +1,5 @@
 <template>
-  <div class="stars">
+  <div class="stars" :class="readonly ? 'readonly' : ''">
     <div 
       class="star" 
       :class="rating > 0 ? 'full' : 'empty'"
@@ -68,7 +68,8 @@ export default {
     rating: Number,
     nratings: Number,
     type: Number,
-    id: Number
+    id: Number,
+    readonly: Boolean
   },
   data() {
     return {
@@ -99,6 +100,10 @@ export default {
   .star {
     float: left;
     cursor: pointer;
+  }
+  .readonly {
+    cursor: none;
+    pointer-events: none;
   }
   .empty {
     fill: none;
