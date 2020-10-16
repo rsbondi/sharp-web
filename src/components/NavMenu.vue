@@ -6,9 +6,6 @@
     <router-link to="/program">
       <div class="menu-item" :class="page===PAGE.PROGRAM ? 'selected' : ''">Program</div>
     </router-link>
-    <!-- <router-link to="/groups"> -->
-      <div class="menu-item" :class="page===PAGE.GROUPS ? 'selected' : ''">Groups</div>
-    <!-- </router-link> -->
     <router-link to="/notifications">
       <div class="menu-item" :class="page===PAGE.NOTIFICATIONS ? 'selected' : ''">Notifications</div>
     </router-link>
