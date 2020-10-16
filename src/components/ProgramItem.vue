@@ -41,6 +41,7 @@
           <strong>Rating</strong><br>
           <div class="stars">
             <Rating 
+              :id="program.id"
               :rating="program.rating" 
               :nratings="program.nratings"
               :type="0"

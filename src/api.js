@@ -165,6 +165,10 @@ function participate(program_id) {
   return postApi('participate', {program_id})
 }
 
+function rate(opts) {
+  return postApi('rate', opts)
+}
+
 export {
   postApi,
   login,
@@ -200,4 +204,5 @@ export {
   addprogram,
   programs,
   participate,
+  rate,
 }
