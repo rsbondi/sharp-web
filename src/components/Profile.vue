@@ -19,7 +19,7 @@
         </div>
       </div>
     </div>
-    <div>
+    <div :class="!~$store.state.profileUser ? 'offering' : ''">
       <label>
         <input 
           type="checkbox" 
@@ -29,7 +29,7 @@
         to mentor
       </label>
     </div>
-    <div>
+    <div :class="!~$store.state.profileUser ? 'offering' : ''">
       <label>
         <input
           type="checkbox"
@@ -238,6 +238,10 @@ export default {
 
 .rating {
   margin-top: 1em;
+}
+
+.offering>label, .offering>label>input[type="checkbox"] {
+  cursor: pointer;
 }
 
 </style>
