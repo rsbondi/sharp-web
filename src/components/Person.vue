@@ -24,6 +24,17 @@
         <button @click="follow">{{person.ifollow ? 'Unfollow' : 'Follow'}}</button>
       </div>
     </div>
+    <div v-if="isOfferingMentor" class="flex-container">
+      <Rating 
+        :id="person.id"
+        :rating="person.rating" 
+        :nratings="person.nratings"
+        :type="1"
+        :readonly="true"
+      />
+
+    </div>
+
   </div>
 </template>
 
@@ -31,6 +42,7 @@
 import { IMAGE_BASE_URL, REQUEST } from '../constants'
 import { request, follow } from '../api'
 import ProfileLink from './ProfileLink.vue'
+import Rating from './Rating.vue'
 
 export default {
   name: "Person",
@@ -38,7 +50,7 @@ export default {
     person: Object
   },
   components: {
-    ProfileLink
+    ProfileLink, Rating
   },
   data() {
     return {

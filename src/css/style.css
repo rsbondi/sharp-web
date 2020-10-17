@@ -275,8 +275,13 @@ ul {
   border-radius: 0.4em;
 }
 
-.feed li {
+.comment li {
+  border: 1px solid #ccccff;
+}
+
+.feed>ul>li {
   background-color: white;
+  box-shadow: 4px 4px 4px rgba(0,0,0,0.2);
 }
 
 .feed-avatar-img {
