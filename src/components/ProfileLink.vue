@@ -60,5 +60,6 @@ export default {
     padding: 2em;
     left: 60px;
     top: 8px;
+    z-index: 10;
   }
 </style>
