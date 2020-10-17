@@ -91,17 +91,6 @@ export default {
 </script>
 
 <style>
-.feed-avatar-img {
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-}
-
-.feed-img-container {
-  float: left;
-  margin-right: 1em;
-}
-
 .feedback {
   display: flex;
   justify-content: center;

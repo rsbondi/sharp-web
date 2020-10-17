@@ -279,6 +279,17 @@ ul {
   background-color: white;
 }
 
+.feed-avatar-img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.feed-img-container {
+  float: left;
+  margin-right: 1em;
+}
+
 .comment li {
   background-image: linear-gradient(#f9f9f9, white);
 }
