@@ -48,8 +48,8 @@ function joingroup(group_id) {
   return postApi('joingroup', {group_id})
 }
 
-function post(content, group_id) {
-  return postApi('post', {content, group_id})
+function post(content, program_id) {
+  return postApi('post', {content, program_id})
 }
 
 function message(content, recipient_id) {
@@ -68,16 +68,8 @@ function messages() {
   return getApi('messages')
 }
 
-function feed(last, group_id) {
-  return postApi('feed', {last, group_id})
-}
-
-function groupusers(group_id) {
-  return postApi('groupusers', {group_id})
-}
-
-function usersgroups() {
-  return getApi('usersgroups')
+function feed(last, program_id) {
+  return postApi('feed', {last, program_id})
 }
 
 function like(item_id, item_type) {
@@ -181,8 +173,6 @@ export {
   follow,
   messages,
   feed,
-  groupusers,
-  usersgroups,
   like,
   likes,
   offer,

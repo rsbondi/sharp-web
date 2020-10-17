@@ -6,7 +6,7 @@
         <div class="info">Level: {{ program.level }}</div>
         <div class="info">Members: {{ program.members }}</div>
         <div class="info mystatus">
-          {{ mine }}
+          <a @click.prevent="setProgram" href="">{{ mine }}</a>
           <button @click="joinProgram" v-if="!mine">Join</button>
         </div>
       </div>
@@ -75,6 +75,10 @@ export default {
     },
     messageContact() {
       this.$store.dispatch('messageuser', {username: this.program.username, user_id: this.program.user_id})
+    },
+    setProgram() {
+      this.$store.commit('setcontent', {key: 'currentProgram', data: this.program})
+      this.$store.commit('setcontent', {key: 'programView', data: 'feed'})
     }
   },
   data() {
