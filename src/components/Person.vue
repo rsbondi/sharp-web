@@ -30,7 +30,7 @@
         :rating="person.rating" 
         :nratings="person.nratings"
         :type="1"
-        :readonly="true"
+        :readonly="!isMentor"
       />
 
     </div>
