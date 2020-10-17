@@ -45,6 +45,18 @@
       <UserInfo :user="user" />
     </div>
 
+    <div class="flex-container rating" v-if="mentor || user.mymentor">
+      <div title="Mentor Rating">
+        <Rating 
+          :id="user.id"
+          :rating="user.rating" 
+          :nratings="user.nratings"
+          :type="1"
+          :readonly="!user.mymentor"
+        />
+      </div>
+    </div>
+
     <div class="feed">
       <ul>
         <li v-for="post in feedContent" :key="post.id">
@@ -58,13 +70,14 @@
 <script>
 import FeedItem from "./FeedItem";
 import UserInfo from "./UserInfo";
+import Rating from './Rating.vue'
 import { post, uploadUserImage, offer, userinfo } from "../api";
 import { IMAGE_BASE_URL, DEFAULT_AVATAR_URL, DEFAULT_COVER_URL } from "../constants";
 
 export default {
   name: "Profile",
   components: {
-    FeedItem, UserInfo
+    FeedItem, UserInfo, Rating
   },
   data() {
     return {
@@ -221,6 +234,10 @@ export default {
 .info-wrapper {
   margin-top: 16px;
   text-align: center;
+}
+
+.rating {
+  margin-top: 1em;
 }
 
 </style>
