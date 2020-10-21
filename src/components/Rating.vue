@@ -42,7 +42,6 @@
     </div>
     <div class="star ratings">({{nratings}})</div>
 
-    <!-- TODO: disable if I have already rated -->
     <div class="review" v-if="showreview">
       <div class="review-header">
         <h5>Write a review</h5>
@@ -56,6 +55,9 @@
       </div>
     </div>
   </div>
+  <div class="reviews-link" v-if="reviews">
+    <a @click.prevent="getReviews" href="">reviews</a>
+  </div>
 </template>
 
 <script>
@@ -67,15 +69,17 @@ export default {
   props: {
     rating: Number,
     nratings: Number,
+    reviews: Number,
     type: Number,
     id: Number,
-    readonly: Boolean
+    readonly: Boolean,
+    getReviews: Function
   },
   data() {
     return {
       myrating: 0,
       showreview: false,
-      myreview: ''
+      myreview: '',
     }
   },
   methods: {
@@ -151,4 +155,8 @@ export default {
     margin-bottom: 0.5em;
     margin-top: 2em;  
   }
+  .reviews-link {
+    text-align: center;
+  }
+
 </style>

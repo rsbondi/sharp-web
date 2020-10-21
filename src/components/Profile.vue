@@ -51,12 +51,21 @@
           :id="user.id"
           :rating="user.rating" 
           :nratings="user.nratings"
+          :reviews="user.reviews"
           :type="1"
           :readonly="!user.mymentor"
+          :getReviews="this.showReviews"
         />
       </div>
     </div>
 
+    <div class="reviews-container">
+      <div v-if="reviewsVisible" class="reviews">
+        <div v-for="r in reviewItems" :key="r.id">
+          {{r.fullname}} {{r.rating}} {{r.review}}
+        </div>
+      </div>
+    </div>
     <div class="feed">
       <ul>
         <li v-for="post in feedContent" :key="post.id">
@@ -65,13 +74,15 @@
       </ul>
     </div>
   </div>
+
+
 </template>
 
 <script>
 import FeedItem from "./FeedItem";
 import UserInfo from "./UserInfo";
 import Rating from './Rating.vue'
-import { post, uploadUserImage, offer, userinfo } from "../api";
+import { post, uploadUserImage, offer, userinfo, reviews } from "../api";
 import { IMAGE_BASE_URL, DEFAULT_AVATAR_URL, DEFAULT_COVER_URL } from "../constants";
 
 export default {
@@ -87,6 +98,8 @@ export default {
       mentor: false,
       accountability: false,
       user: {},
+      reviewsVisible: false,
+      reviewItems: []
     };
   },
   computed: {
@@ -169,6 +182,14 @@ export default {
           this.$store.commit('setuser', data.info)
       })
       .catch(console.error);
+    },
+    showReviews() {
+      if (!this.reviewsVisible) {
+        reviews(this.user.id, 1).then(result => {
+          this.reviewsVisible = true
+          this.reviewItems = result.reviews
+        })
+      } else this.reviewsVisible = false
     }
   },
   mounted() {
@@ -242,6 +263,20 @@ export default {
 
 .offering>label, .offering>label>input[type="checkbox"] {
   cursor: pointer;
+}
+
+.reviews {
+  position: absolute;
+  width: 100%;
+  padding: 1em;
+  border: 1px solid lightgray;
+  border-radius: 5%;
+  background-color: #fafafa;
+  box-sizing: border-box;
+}
+
+.reviews-container {
+  position: relative;
 }
 
 </style>

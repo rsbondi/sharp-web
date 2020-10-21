@@ -161,6 +161,10 @@ function rate(opts) {
   return postApi('rate', opts)
 }
 
+function reviews(item_id, item_type) {
+  return postApi('reviews', {item_id, item_type})
+}
+
 export {
   postApi,
   login,
@@ -195,4 +199,5 @@ export {
   programs,
   participate,
   rate,
+  reviews,
 }
