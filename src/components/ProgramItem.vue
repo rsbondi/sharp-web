@@ -47,24 +47,31 @@
               :type="0"
               :readonly="!mine"
             />
+
+
           </div>
+            <div class="reviews-link" v-if="program.reviews">
+              <a @click.prevent="showReviews" href="">reviews</a>
+            </div>
         </div>
       </div>
+          <Reviews :reviews="reviewItems" :visible="reviewsVisible"/>
     </div>
   </div>
 </template>
 
 <script>
-import { participate } from "../api";
+import { participate, reviews } from "../api";
 import ProfileLink from "./ProfileLink.vue";
 import Rating from './Rating.vue'
+import Reviews from './Reviews.vue'
 import { IMAGE_BASE_URL } from "../constants";
 
 export default {
   props: {
     program: Object,
   },
-  components: { ProfileLink, Rating },
+  components: { ProfileLink, Rating, Reviews },
   methods: {
     joinProgram() {
       participate(this.program.id).then((result) => {
@@ -79,11 +86,23 @@ export default {
     setProgram() {
       this.$store.commit('setcontent', {key: 'currentProgram', data: this.program})
       this.$store.commit('setcontent', {key: 'programView', data: 'feed'})
+    },
+    showReviews() {
+      if (!this.reviewsVisible) {
+        reviews(this.program.id, 0).then(result => {
+          this.reviewsVisible = true
+          this.reviewItems = result.reviews
+        })
+      } else this.reviewsVisible = false
     }
+
   },
   data() {
     return {
       IMAGE_BASE_URL: IMAGE_BASE_URL,
+      reviewsVisible: false,
+      reviewItems: []
+
     };
   },
   computed: {
@@ -138,6 +157,9 @@ export default {
   padding-top: 18px;
 }
 .stars {
-  padding-top: 14px;
+  padding-top: 8px;
+}
+.reviews-link {
+  text-align: center;
 }
 </style>

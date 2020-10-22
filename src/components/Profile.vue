@@ -264,4 +264,7 @@ export default {
   cursor: pointer;
 }
 
+.reviews-link {
+  text-align: center;
+}
 </style>

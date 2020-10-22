@@ -22,7 +22,7 @@ export default {
   position: absolute;
   width: 100%;
   padding: 1em;
-  border: 1px solid lightgray;
+  border: 3px solid cornflowerblue;
   border-radius: 5%;
   background-color: #fafafa;
   box-sizing: border-box;
@@ -31,7 +31,5 @@ export default {
 .reviews-container {
   position: relative;
 }
-.reviews-link {
-  text-align: center;
-}
+
 </style>
