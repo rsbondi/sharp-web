@@ -55,9 +55,6 @@
       </div>
     </div>
   </div>
-  <div class="reviews-link" v-if="reviews">
-    <a @click.prevent="getReviews" href="">reviews</a>
-  </div>
 </template>
 
 <script>
@@ -73,7 +70,6 @@ export default {
     type: Number,
     id: Number,
     readonly: Boolean,
-    getReviews: Function
   },
   data() {
     return {
@@ -154,9 +150,6 @@ export default {
   h5 {
     margin-bottom: 0.5em;
     margin-top: 2em;  
-  }
-  .reviews-link {
-    text-align: center;
   }
 
 </style>

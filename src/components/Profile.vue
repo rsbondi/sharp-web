@@ -54,8 +54,11 @@
           :reviews="user.reviews"
           :type="1"
           :readonly="!user.mymentor"
-          :getReviews="this.showReviews"
         />
+
+        <div class="reviews-link" v-if="user.reviews">
+          <a @click.prevent="showReviews" href="">reviews</a>
+        </div>
       </div>
     </div>
 
@@ -66,6 +69,7 @@
         </div>
       </div>
     </div>
+
     <div class="feed">
       <ul>
         <li v-for="post in feedContent" :key="post.id">
@@ -278,5 +282,7 @@ export default {
 .reviews-container {
   position: relative;
 }
-
+.reviews-link {
+  text-align: center;
+}
 </style>
