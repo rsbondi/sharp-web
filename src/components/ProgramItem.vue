@@ -55,7 +55,11 @@
             </div>
         </div>
       </div>
-          <Reviews :reviews="reviewItems" :visible="reviewsVisible"/>
+          <Reviews 
+            :reviews="reviewItems" 
+            :visible="reviewsVisible"
+            :close="() => reviewsVisible=false"
+            />
     </div>
   </div>
 </template>

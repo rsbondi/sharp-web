@@ -62,7 +62,11 @@
       </div>
     </div>
 
-    <Reviews :reviews="reviewItems" :visible="reviewsVisible"/>
+    <Reviews 
+      :reviews="reviewItems" 
+      :visible="reviewsVisible"
+      :close="() => reviewsVisible=false"
+    />
 
     <div class="feed">
       <ul>
