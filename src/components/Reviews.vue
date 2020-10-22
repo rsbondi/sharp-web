@@ -1,19 +1,27 @@
 <template>
     <div class="reviews-container">
     <div v-if="visible" class="reviews">
-      <div v-for="r in reviews" :key="r.id">
+      <div v-for="r in reviews" :key="r.id" class="review">
         {{r.fullname}} {{r.rating}} {{r.review}}
+        <div>
+          <Rating
+            :rating="r.rating"
+            :nratings="-1"
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Rating from './Rating.vue'
 export default {
   props: {
     reviews: Object,
     visible: Boolean
-  }
+  },
+  components: { Rating }
 }
 </script>
 
@@ -30,6 +38,15 @@ export default {
 
 .reviews-container {
   position: relative;
+}
+
+.review {
+  clear: both;
+  margin-top: 4em;
+}
+
+.review:first-child {
+  margin-top: 0;
 }
 
 </style>

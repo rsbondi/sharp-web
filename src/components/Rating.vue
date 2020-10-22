@@ -40,7 +40,7 @@
       <Star v-if="rating <=4 || rating > 4.5"/>
       <StarHalf v-if="rating > 4 && rating <= 4.5" />
     </div>
-    <div class="star ratings">({{nratings}})</div>
+    <div v-if="~nratings" class="star ratings">({{nratings}})</div>
 
     <div class="review" v-if="showreview">
       <div class="review-header">
