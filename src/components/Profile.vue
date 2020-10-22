@@ -62,13 +62,7 @@
       </div>
     </div>
 
-    <div class="reviews-container">
-      <div v-if="reviewsVisible" class="reviews">
-        <div v-for="r in reviewItems" :key="r.id">
-          {{r.fullname}} {{r.rating}} {{r.review}}
-        </div>
-      </div>
-    </div>
+    <Reviews :reviews="reviewItems" :visible="reviewsVisible"/>
 
     <div class="feed">
       <ul>
@@ -86,13 +80,14 @@
 import FeedItem from "./FeedItem";
 import UserInfo from "./UserInfo";
 import Rating from './Rating.vue'
+import Reviews from './Reviews.vue'
 import { post, uploadUserImage, offer, userinfo, reviews } from "../api";
 import { IMAGE_BASE_URL, DEFAULT_AVATAR_URL, DEFAULT_COVER_URL } from "../constants";
 
 export default {
   name: "Profile",
   components: {
-    FeedItem, UserInfo, Rating
+    FeedItem, UserInfo, Rating, Reviews
   },
   data() {
     return {
@@ -269,20 +264,4 @@ export default {
   cursor: pointer;
 }
 
-.reviews {
-  position: absolute;
-  width: 100%;
-  padding: 1em;
-  border: 1px solid lightgray;
-  border-radius: 5%;
-  background-color: #fafafa;
-  box-sizing: border-box;
-}
-
-.reviews-container {
-  position: relative;
-}
-.reviews-link {
-  text-align: center;
-}
 </style>
