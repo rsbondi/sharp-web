@@ -23,7 +23,8 @@
           <NotificationIcon />
           <div v-show="unseen" class="unseen">{{unseen}}</div>
         </div>
-        <button class="topbar-avatar-icon" @click="loadProfile">
+        <button class="topbar-avatar-icon" @click="loadProfile"  
+          @mouseover="showProfileMenu=true" @mouseleave="bye">
           <div class="topbar-icons topbar-avatar">
             <img
               :src="avatarUrl"
@@ -31,6 +32,11 @@
             />
           </div>
         </button>
+        <div v-if="showProfileMenu" class="profile-menu"  
+          @mouseover="stay" @mouseleave="bye">
+          <a href="" @click.prevent="loadProfile">Profile</a>
+          <a href="" @click.prevent="logout">Logout</a>
+        </div>
       </div>
     </div>
   </div>
@@ -62,6 +68,12 @@ export default {
       return this.$store.state.unseen
     }
   },
+  data() {
+    return {
+      showProfileMenu: false,
+      hoverTimer: null
+    }
+  },
   methods: {
     loadFeed(e) {
       e.preventDefault()
@@ -76,7 +88,19 @@ export default {
     loadProfile() {
       this.$store.commit('setcontent', {key: 'profileUser', data: -1})
       this.$router.push('profile')
+      this.showProfileMenu = false;
+    },
+    bye() {
+      this.hoverTimer = setTimeout(() => this.showProfileMenu = false, 1000)
+    },
+    stay() {
+      clearTimeout(this.hoverTimer)
+    },
+    logout() {
+      localStorage.removeItem('macaroon')
+      document.location.reload()
     }
+
   },
     mounted() {
     userinfo()
@@ -110,6 +134,21 @@ export default {
 
 .notification-wrapper {
   position: relative
+}
+
+.profile-menu {
+  position: absolute;
+    padding: 0.5em;
+    top: 32px;
+    border: 1px solid lightgray;
+    background-color: white;
+    right: 0;
+}
+
+.profile-menu a {
+  text-decoration: none;
+  display: block;
+  margin: 0.5em;
 }
 </style>
 
