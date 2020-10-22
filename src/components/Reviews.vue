@@ -9,6 +9,7 @@
           <Rating
             :rating="r.rating"
             :nratings="-1"
+            :readonly="true"
           />
         </div>
       </div>
