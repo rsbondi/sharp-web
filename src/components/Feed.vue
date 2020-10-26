@@ -2,7 +2,8 @@
   <div class="feed">
     <h2>Feed</h2>
 
-    <input @keyup.enter="doPost" v-model="postContent" type="text" placeholder="New Post" />
+    <!-- <input @keyup.enter="doPost" v-model="postContent" type="text" placeholder="New Post" /> -->
+    <PostInput :post="doPost" ref="postinput" placeholder="New Post" />
 
     <ul>
       <li v-for="post in feedContent.posts" :key="post.id">
@@ -14,18 +15,14 @@
 
 <script>
 import FeedItem from "./FeedItem";
+import PostInput from "./PostInput"
 import { post } from "../api"
 import { PAGE } from "../constants"
 
 export default {
   name: "Feed",
   components: {
-    FeedItem,
-  },
-  data() {
-    return {
-      postContent: "",
-    };
+    FeedItem, PostInput
   },
   computed: {
     feedContent() {
@@ -34,8 +31,9 @@ export default {
   },
   methods: {
     doPost() {
-      post(this.postContent).then(response => {
-        this.postContent = ""
+      post(this.$refs.postinput.value).then(response => {
+        this.$refs.postinput.value = ''
+        this.$refs.postinput.searchResults = []
         this.$store.dispatch('getfeed')
       }).catch(console.log)
     }
