@@ -1,7 +1,7 @@
 <template>
   <input 
     @keyup="doSearch" 
-    @keyup.enter="post" 
+    @keyup.enter="doPost" 
     v-model="value" 
     type="text" 
     :placeholder="placeholder"
@@ -46,6 +46,13 @@ export default {
       setTimeout(() => this.$refs.searchinput.setSelectionRange(pos, pos), 0)
       this.at = 0
       this.search = ''
+    },
+    doPost() {
+      this.post().then(() => {
+        this.value = ''
+        this.searchResults = []
+      })
+
     }
   },
   data() {

@@ -2,7 +2,6 @@
   <div class="feed">
     <h2>Feed</h2>
 
-    <!-- <input @keyup.enter="doPost" v-model="postContent" type="text" placeholder="New Post" /> -->
     <PostInput :post="doPost" ref="postinput" placeholder="New Post" />
 
     <ul>
@@ -31,9 +30,7 @@ export default {
   },
   methods: {
     doPost() {
-      post(this.$refs.postinput.value).then(response => {
-        this.$refs.postinput.value = ''
-        this.$refs.postinput.searchResults = []
+      return post(this.$refs.postinput.value).then(response => {
         this.$store.dispatch('getfeed')
       }).catch(console.log)
     }
