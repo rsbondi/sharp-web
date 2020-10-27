@@ -88,6 +88,8 @@ export default {
           return "liked your post" // TODO: more than just post when implemented.
         case "comment":
           return "commented on your post"
+        case "mention":
+          return "mentioned you in a post"
       }
     },
     requestContent() {
