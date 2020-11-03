@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="profile-wrapper">
     <h2>Profile</h2>
     <div class="profile">
       <div class="profile-img">
@@ -203,6 +203,9 @@ export default {
 </script>
 
 <style scoped>
+.profile-wrapper {
+  width: 800px;
+}
 .profile-avatar {
   bottom: -50px;
   position: absolute;
