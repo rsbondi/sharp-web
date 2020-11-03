@@ -35,6 +35,11 @@ export default {
   },
   components: { ProfileLink, Time },
   methods: {
+    updateCommentPost(activeComment) {
+      if (this.$store.state.activeComment === activeComment) {
+        this.$router.push('post')
+      } else setTimeout(() => this.updateCommentPost(activeComment), 50)
+    },
     handleNotificationClick() {
       switch (this.notification.notification_type) {
         case 'message':
@@ -46,13 +51,21 @@ export default {
           this.$store.dispatch('setactivepost', {
             comment_id: this.notification.source_id,
           })
+          this.updateCommentPost(this.notification.source_id)
           break;
         case 'like':
           getlike(this.notification.source_id).then(response => {
             this.$store.dispatch('setactivepost', {
               post_id: response.like.item_id,
             })
+            this.$router.push('post')
           })
+          break;
+        case 'mention':
+          this.$store.dispatch('setactivepost', {
+              post_id: this.notification.source_id
+            })
+          this.$router.push('post')
           break;
       }
     },
@@ -102,7 +115,8 @@ export default {
     showContent() {
       return this.notification.notification_type==='message' || 
       this.notification.notification_type==='like' ||
-      this.notification.notification_type==='comment'
+      this.notification.notification_type==='comment' ||
+      this.notification.notification_type==='mention'
     },
   },
 };

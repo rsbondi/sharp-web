@@ -21,10 +21,26 @@ export default {
       }
     }
   },
+  methods: {
+    updatePost() {
+      const post = this.$store.state.feed.posts.find(e => e.id === this.$store.state.activePost)
+      console.log(post)
+      if (post) {
+        this.post = post
+        this.$store.commit('setcontent', {key: 'activePost', data: -1})
+        this.$store.commit('setcontent', {key: 'activeComment', data: -1})
+      }
+    }
+  },
   mounted() {
-    this.post = this.$store.state.feed.posts.find(e => e.id === this.$store.state.activePost)
-    this.$store.commit('setcontent', {key: 'activePost', data: -1})
-    this.$store.commit('setcontent', {key: 'activeComment', data: -1})
+    this.updatePost()
+  },
+  watch: {
+    $route (to, from) {
+      if (to.path === "/post") {
+        this.updatePost()
+      }
+    }
   }
 }
 </script>

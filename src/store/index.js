@@ -132,9 +132,9 @@ export default createStore({
     async setactivepost(context, payload) {
       try {
         if (payload.comment_id) {
-          context.commit('setcontent', {key:'activeComment', data: payload.comment_id})
           const comment = await getcomment(payload.comment_id)
           context.commit('setcontent', {key:'activePost', data: comment.comment.post_id})
+          context.commit('setcontent', {key:'activeComment', data: payload.comment_id})
         } else {
           context.commit('setcontent', {key:'activePost', data: payload.post_id})
         }
