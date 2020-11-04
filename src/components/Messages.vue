@@ -4,8 +4,8 @@
     <div class="msgcontainer nobot">
       <div class="msgusers">
         <span>Chats</span>
-        <div class="search-users-btn">
-          <button @click="searchMode" >icon</button>
+        <div class="search-users-btn" v-show="mode==='chat'">
+          <button @click="searchMode" ><SearchIcon/></button>
         </div>
       </div>
       <div class="messages">
@@ -65,10 +65,11 @@
 import { message, searchusers } from "../api"
 import { IMAGE_BASE_URL } from '../constants'
 import Time from './Time.vue'
+import SearchIcon from './icons/SearchIcon'
 
 export default {
   name: "Messages",
-  components: {Time},
+  components: {Time, SearchIcon},
   data() {
     return {
       message: "",
