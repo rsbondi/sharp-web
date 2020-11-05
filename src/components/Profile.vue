@@ -2,6 +2,12 @@
   <div class="profile-wrapper">
     <h2>Profile</h2>
     <div class="profile">
+      <div class="profile-edit" v-if="showEdit">
+        <ProfileEdit 
+        :user="user"
+        :close="closeEdit"
+         />
+      </div>
       <div class="profile-img">
         <label for="cover-input">
           <img class="cover-image" :src="coverUrl"  :class="okclick" />
@@ -19,6 +25,11 @@
         </div>
       </div>
     </div>
+
+    <div class="edit-icon" v-if="!~$store.state.profileUser">
+      <PencilIcon @click="showEdit=!showEdit"/>
+    </div>
+
     <div :class="!~$store.state.profileUser ? 'offering' : ''">
       <label>
         <input 
@@ -85,13 +96,15 @@ import FeedItem from "./FeedItem";
 import UserInfo from "./UserInfo";
 import Rating from './Rating.vue'
 import Reviews from './Reviews.vue'
+import ProfileEdit from './ProfileEdit.vue'
+import PencilIcon from './icons/PencilIcon.vue'
 import { post, uploadUserImage, offer, userinfo, reviews } from "../api";
 import { IMAGE_BASE_URL, DEFAULT_AVATAR_URL, DEFAULT_COVER_URL } from "../constants";
 
 export default {
   name: "Profile",
   components: {
-    FeedItem, UserInfo, Rating, Reviews
+    FeedItem, UserInfo, Rating, Reviews, PencilIcon, ProfileEdit
   },
   data() {
     return {
@@ -102,7 +115,8 @@ export default {
       accountability: false,
       user: {},
       reviewsVisible: false,
-      reviewItems: []
+      reviewItems: [],
+      showEdit: false
     };
   },
   computed: {
@@ -193,6 +207,14 @@ export default {
           this.reviewItems = result.reviews
         })
       } else this.reviewsVisible = false
+    },
+    closeEdit(update) {
+      if (update) {
+        userinfo().then(result => {
+          this.user = result.info;
+          this.showEdit = false
+        }).catch(consle.log)
+      } else this.showEdit = false
     }
   },
   mounted() {
@@ -273,5 +295,22 @@ export default {
 
 .reviews-link {
   text-align: center;
+}
+
+.edit-icon {
+  float: right;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.profile-edit {
+  position: absolute;
+  width: 100%;
+  z-index: 20;
+  padding: 1em;
+  border: 3px solid cornflowerblue;
+  border-radius: 0.5em;
+  background-color: #fafafa;
+  box-sizing: border-box;
 }
 </style>

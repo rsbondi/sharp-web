@@ -165,6 +165,10 @@ function reviews(item_id, item_type) {
   return postApi('reviews', {item_id, item_type})
 }
 
+function updateuser(fullname, email, bio) {
+  return postApi('updateuser', {fullname, email, bio})
+}
+
 export {
   postApi,
   login,
@@ -200,4 +204,5 @@ export {
   participate,
   rate,
   reviews,
+  updateuser,
 }
