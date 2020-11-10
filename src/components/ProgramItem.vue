@@ -46,6 +46,7 @@
               :nratings="program.nratings"
               :type="0"
               :readonly="!mine"
+              :updateRating="rated"
             />
 
 
@@ -98,6 +99,11 @@ export default {
           this.reviewItems = result.reviews
         })
       } else this.reviewsVisible = false
+    },
+    rated(rating, nratings, reviews) {
+      this.program.rating = rating
+      this.program.nratings = nratings
+      this.program.reviews = reviews
     }
 
   },

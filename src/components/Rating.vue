@@ -70,6 +70,7 @@ export default {
     type: Number,
     id: Number,
     readonly: Boolean,
+    updateRating: Function,
   },
   data() {
     return {
@@ -87,7 +88,10 @@ export default {
       rate({item_id: this.id, item_type: this.type, rating: this.myrating, review: this.myreview})
         .then(result => {
           if (result.success) {
-            // TODO: update display, probably refactor method to prop
+            if (result.stats && this.updateRating) {
+              const { rating, nratings, reviews } = result.stats
+              this.updateRating(rating, nratings, reviews)
+            }
             this.showreview = false
           }
         }).catch(console.log)
