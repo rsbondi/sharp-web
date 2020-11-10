@@ -49,6 +49,7 @@ export default {
 <style scoped>
   .rel {
     position: relative;
+    display: inline-block;
   }
 
   .hover-content {
@@ -58,7 +59,6 @@ export default {
     border-radius: 5px;
     background-color: white;
     padding: 2em;
-    left: 60px;
     top: 8px;
     z-index: 10;
   }
