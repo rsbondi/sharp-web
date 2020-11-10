@@ -163,6 +163,7 @@ export default {
       uploadUserImage(formData, "avatar").then(response => {
         if (response.success) {
           this.user.avatar_image = response.file
+          this.$store.commit('setcontent', {key: 'avatar_image', data: response.file})
         } else (console.log)
       });
     },
