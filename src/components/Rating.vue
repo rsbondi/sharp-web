@@ -2,43 +2,43 @@
   <div class="stars" :class="readonly ? 'readonly' : ''">
     <div 
       class="star" 
-      :class="rating > 0 ? 'full' : 'empty'"
+      :class="activeRating > 0 ? 'full' : 'empty'"
       @click="rateit(1)"
       >
-      <Star v-if="rating ===0 || rating > 0.5"/>
-      <StarHalf v-if="rating > 0 && rating <= 0.5" />
+      <Star v-if="activeRating ===0 || activeRating > 0.5"/>
+      <StarHalf v-if="activeRating > 0 && activeRating <= 0.5" />
     </div>
     <div 
       class="star" 
-      :class="rating > 1 ? 'full' : 'empty'"
+      :class="activeRating > 1 ? 'full' : 'empty'"
       @click="rateit(2)"
       >
-      <Star v-if="rating <=1 || rating > 1.5"/>
-      <StarHalf v-if="rating > 1 && rating <= 1.5" />
+      <Star v-if="activeRating <=1 || activeRating > 1.5"/>
+      <StarHalf v-if="activeRating > 1 && activeRating <= 1.5" />
     </div>
     <div 
       class="star" 
-      :class="rating > 2 ? 'full' : 'empty'"
+      :class="activeRating > 2 ? 'full' : 'empty'"
       @click="rateit(3)"
       >
-      <Star v-if="rating <=2 || rating > 2.5"/>
-      <StarHalf v-if="rating > 2 && rating <= 2.5" />
+      <Star v-if="activeRating <=2 || activeRating > 2.5"/>
+      <StarHalf v-if="activeRating > 2 && activeRating <= 2.5" />
     </div>
     <div 
       class="star" 
-      :class="rating > 3 ? 'full' : 'empty'"
+      :class="activeRating > 3 ? 'full' : 'empty'"
       @click="rateit(4)"
       >
-      <Star v-if="rating <=3 || rating > 3.5"/>
-      <StarHalf v-if="rating > 3 && rating <= 3.5" />
+      <Star v-if="activeRating <=3 || activeRating > 3.5"/>
+      <StarHalf v-if="activeRating > 3 && activeRating <= 3.5" />
     </div>
     <div 
       class="star" 
-      :class="rating > 4 ? 'full' : 'empty'"
+      :class="activeRating > 4 ? 'full' : 'empty'"
       @click="rateit(5)"
       >
-      <Star v-if="rating <=4 || rating > 4.5"/>
-      <StarHalf v-if="rating > 4 && rating <= 4.5" />
+      <Star v-if="activeRating <=4 || activeRating > 4.5"/>
+      <StarHalf v-if="activeRating > 4 && activeRating <= 4.5" />
     </div>
     <div v-if="~nratings" class="star ratings">({{nratings}})</div>
 
@@ -77,6 +77,14 @@ export default {
       myrating: 0,
       showreview: false,
       myreview: '',
+    }
+  },
+  computed: {
+    activeRating() {
+      if (this.showreview) {
+        return this.myrating
+      }
+      else return this.rating
     }
   },
   methods: {
