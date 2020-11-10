@@ -31,6 +31,7 @@
         :nratings="person.nratings"
         :type="1"
         :readonly="!person.mymentor"
+        :updateRating="rated"
       />
 
     </div>
@@ -97,6 +98,12 @@ export default {
         }
       })
     },
+    rated(rating, nratings, reviews) {
+      this.person.rating = rating
+      this.person.nratings = nratings
+      this.person.reviews = reviews
+    }
+
   }
 }
 </script>
