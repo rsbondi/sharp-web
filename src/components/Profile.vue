@@ -65,6 +65,7 @@
           :reviews="user.reviews"
           :type="1"
           :readonly="!user.mymentor"
+          :updateRating="rated"
         />
 
         <div class="reviews-link" v-if="user.reviews">
@@ -215,6 +216,12 @@ export default {
           this.showEdit = false
         }).catch(consle.log)
       } else this.showEdit = false
+    },
+    rated(rating, nratings, reviews) {
+      this.user.rating = rating
+      this.user.nratings = nratings
+      this.user.reviews = reviews
+
     }
   },
   mounted() {
