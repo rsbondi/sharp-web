@@ -77,17 +77,22 @@ export default {
     }
   },
   methods: {
+    updateRequest(requestType) {
+      const parts = this.person.requests.split(',')
+      parts.push(requestType)
+      this.person.requests = parts.join(',')
+    },
     requestAccountability() {
       request(REQUEST.TYPE.ACCOUNTABILITY, this.person.id).then(data => {
         if (data.success) {
-          // TODO:
+          this.updateRequest(REQUEST.TYPE.ACCOUNTABILITY)
         }
       })
     },
     requestMentor() {
       request(REQUEST.TYPE.MENTOR, this.person.id).then(data => {
         if (data.success) {
-          // TODO:
+          this.updateRequest(REQUEST.TYPE.MENTOR)
         }
       })
     },
