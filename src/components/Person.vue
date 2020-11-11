@@ -16,10 +16,11 @@
     <div class="flex-container">
       <div class="request">
         <button v-if="isOfferingAccountability && !isAccountability" @click="requestAccountability">Request Accountability Partner</button>
+        <div class="status">{{accountabilityStatus}}</div>
       </div>
       <div class="request">
         <button v-if="isOfferingMentor && !isMentor" @click="requestMentor">Request For Mentoring</button>
-        <div v-if="mentorStatus" class="status">{{mentorStatus}}</div>
+        <div class="status">{{mentorStatus}}</div>
       </div>
       <div class="request">
         <button @click="follow">{{person.ifollow ? 'Unfollow' : 'Follow'}}</button>
@@ -81,6 +82,19 @@ export default {
         return 'your mentor'
       } else if (this.isMentor) {
         return 'mentor pending'
+      }
+      return ''
+    },
+    accountabilityStatus() {
+      if (this.isAccountability) {
+        const accountabilityIndex = this.person.requests.split(',').indexOf(''+REQUEST.TYPE.ACCOUNTABILITY)
+        const status = this.person.request_status.split(',')
+        const statusNum = parseInt(status[accountabilityIndex], 10)
+        if (statusNum === REQUEST.STATUS.PENDING) {
+          return 'accountability pending'
+        } else if (statusNum === REQUEST.STATUS.ACTIVE) {
+          return 'your partner'
+        }
       }
       return ''
     }
