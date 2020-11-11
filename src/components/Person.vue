@@ -123,6 +123,7 @@ export default {
       follow(this.person.id).then(data => {
         if (data.success) {
           this.person.ifollow = data.action === 'follow'
+          this.person.followers = data.followers
         }
       })
     },
