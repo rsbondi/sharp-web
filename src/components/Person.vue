@@ -19,6 +19,7 @@
       </div>
       <div class="request">
         <button v-if="isOfferingMentor && !isMentor" @click="requestMentor">Request For Mentoring</button>
+        <div v-if="mentorStatus" class="status">{{mentorStatus}}</div>
       </div>
       <div class="request">
         <button @click="follow">{{person.ifollow ? 'Unfollow' : 'Follow'}}</button>
@@ -74,6 +75,14 @@ export default {
     },
     profileUser() {
       return {username: this.person.username, user_id: this.person.id}
+    },
+    mentorStatus() {
+      if (this.person.mymentor) {
+        return 'your mentor'
+      } else if (this.isMentor) {
+        return 'mentor pending'
+      }
+      return ''
     }
   },
   methods: {
@@ -143,6 +152,11 @@ export default {
 
 .person .flex-container div.request {
   width: 220px;
+}
+
+.status {
+  font-style: italic;
+  color: lightslategray
 }
 
 </style>
