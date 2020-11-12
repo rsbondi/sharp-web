@@ -27,7 +27,7 @@ export const LIKE = {
   GROUP_POST: 1,
 }
 
-export const IMAGE_BASE_URL = 'https://127.0.0.1:3009/image'
+export const IMAGE_BASE_URL = `https://${window.location.hostname}:3009/image`
 
 export const REQUEST = {
   TYPE: {
@@ -40,5 +40,5 @@ export const REQUEST = {
     TERMINATED: 2
   }
 }
-export const DEFAULT_AVATAR_URL = 'https://via.placeholder.com/100x100'
-export const DEFAULT_COVER_URL = 'https://via.placeholder.com/800x400'
+export const DEFAULT_AVATAR_URL = `https://${window.location.hostname}:3009/assets/user.jpeg`
+export const DEFAULT_COVER_URL = `https://${window.location.hostname}:3009/assets/cover.jpeg`
