@@ -143,6 +143,7 @@ export default {
   border: 1px solid lightgray;
   padding: 10px;
   margin-bottom: 1em;
+  box-sizing: border-box;
 }
 
 .person-avatar-img {

@@ -88,6 +88,7 @@ export default {
   width: 1250px;
   top: 0;
   align-items: flex-start;
+  height: 0;
 }
 .sidebars {
   border-bottom: none;

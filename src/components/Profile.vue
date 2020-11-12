@@ -278,6 +278,7 @@ export default {
 .cover-image {
   width: 800px;
   height: 400px;
+  cursor: pointer;
 }
 
 .nope {
