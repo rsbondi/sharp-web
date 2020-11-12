@@ -1,16 +1,26 @@
 <template>
   <TopBar></TopBar>
-  <div class="flex-container">
+  <div class="topbar sidebars">
+    <div class="flex-columns sides">
+      <div class="logo-search">
     <NavMenu/>
+
+      </div>
+      <div class="topbar-right">
+    <!-- <div class="fill"> -->
+      <Actions/>
+    <!-- </div> -->
+
+      </div>
+    </div>
+  </div>
+  <div class="flex-container">
     <router-view>
       <keep-alive>
         <component :is="currentComponent" />
       </keep-alive>
     </router-view>
 
-    <div class="fill">
-      <Actions/>
-    </div>
   </div>
 </template>
 
@@ -73,5 +83,15 @@ export default {
 <style scoped>
 .fill {
   width: 200px;
+}
+.sides {
+  width: 1250px;
+  top: 0;
+  align-items: flex-start;
+}
+.sidebars {
+  border-bottom: none;
+  z-index: 25;
+  height: 0;
 }
 </style>
