@@ -3,7 +3,7 @@ function postApi(command, data, method, contenttype) {
   method = method || 'POST'
   return new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
-    const endpoint = `https://127.0.0.1:3009/${command}`
+    const endpoint = `https://${window.location.hostname}:3009/${command}`
     xhr.open(method, endpoint, true);
 
     if (contenttype !== 'none') xhr.setRequestHeader("Content-Type", contenttype || "application/json")
