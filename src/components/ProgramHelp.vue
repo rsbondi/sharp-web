@@ -39,6 +39,14 @@
     on the conflict between nature and society.
   </p>
 
+  <p>
+    Our social gatherings although customarily centered around food, but what's really important is
+    the sharing of time with friends and family.  With this in mind, it is our hope that we can
+    come up with new ways to celebrate that promote health, you can enjoy what is important, the 
+    people we are celebrating with and make the perspective shift that good healthy food will not take
+    away anything from this.
+  </p>
+
   <h3>Programs</h3>
 
   <p>
