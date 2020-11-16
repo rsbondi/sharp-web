@@ -5,10 +5,18 @@
       <li @click="setMode('create')" :class="mode==='create' ? 'selected' : ''">Create</li>
       <li @click="setMode('help')" :class="mode==='help' ? 'selected' : ''" title="info">🛈</li>
     </ul>
-    <ProgramCreate v-if="mode==='create'"/>
-    <Programs v-if="mode==='browse'"/>
-    <ProgramHelp v-if="mode==='help'"/>
-    <ProgramFeed v-if="mode==='feed'"/>
+    <div v-if="mode==='create'">
+     <ProgramCreate/>
+    </div>
+    <div v-if="mode==='browse'">
+      <Programs/>
+    </div>
+    <div v-if="mode==='help'">
+      <ProgramHelp/>
+    </div>
+    <div v-if="mode==='feed'">
+      <ProgramFeed/>
+    </div>
   </div>
 </template>
 
