@@ -40,5 +40,6 @@ export const REQUEST = {
     TERMINATED: 2
   }
 }
-export const DEFAULT_AVATAR_URL = `https://${window.location.hostname}:3009/assets/user.jpeg`
-export const DEFAULT_COVER_URL = `https://${window.location.hostname}:3009/assets/cover.jpeg`
+export const ASSETS_URL = `https://${window.location.hostname}:3009/assets`
+export const DEFAULT_AVATAR_URL = `${ASSETS_URL}/user.jpeg`
+export const DEFAULT_COVER_URL = `${ASSETS_URL}/cover.jpeg`
