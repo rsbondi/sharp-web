@@ -28,7 +28,9 @@ export default createStore({
     unseen: 0,
     timer: new Date(),
     currentProgram: {},
-    programView: "browse"
+    programView: "browse",
+    searchResults: '',
+    programFilter: -1,
   },
   mutations: {
     setpage(state, payload) {

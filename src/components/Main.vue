@@ -36,6 +36,7 @@ import Actions from "./Actions.vue";
 import Post from "./Post.vue";
 import Follows from "./Follows.vue"
 import Program from "./Program.vue"
+import SearchResults from "./SearchResults.vue"
 
 export default {
   name: "Main",
@@ -51,6 +52,7 @@ export default {
     Post,
     Follows,
     Program,
+    SearchResults
   },
   data() {
     return {

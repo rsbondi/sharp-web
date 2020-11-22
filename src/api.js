@@ -169,6 +169,10 @@ function updateuser(fullname, email, bio) {
   return postApi('updateuser', {fullname, email, bio})
 }
 
+function search(query) {
+  return postApi('search', {query})
+}
+
 export {
   postApi,
   login,
@@ -205,4 +209,5 @@ export {
   rate,
   reviews,
   updateuser,
+  search,
 }

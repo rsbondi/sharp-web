@@ -11,7 +11,9 @@
             <div class="search-box-icon">
               <SearchIcon />
             </div>
-            <input type="text" placeholder="Search" class="search-box-input" value />
+            <form @submit.prevent="search" action="#">
+              <input v-model="searchQuery" type="text" placeholder="Search" class="search-box-input" value />
+            </form>
           </div>
         </div>
       </div>
@@ -48,7 +50,7 @@ import MessageIcon from "./icons/MessageIcon.vue";
 import MenuIcon from "./icons/MenuIcon.vue";
 import NotificationIcon from "./icons/NotificationIcon.vue";
 import { PAGE, IMAGE_BASE_URL, DEFAULT_AVATAR_URL } from '../constants'
-import { userinfo } from "../api";
+import { userinfo, search } from "../api";
 
 
 export default {
@@ -71,7 +73,8 @@ export default {
   data() {
     return {
       showProfileMenu: false,
-      hoverTimer: null
+      hoverTimer: null,
+      searchQuery: '',
     }
   },
   methods: {
@@ -99,8 +102,16 @@ export default {
     logout() {
       localStorage.removeItem('macaroon')
       document.location.reload()
+    },
+    search() {
+      search(this.searchQuery).then(response => {
+        if (response.success) {
+          this.searchQuery = ''
+          this.$store.commit('setcontent', {key: 'searchResults', data: response.results})
+          this.$store.commit('setcontent', {key: 'currentComponent', data: 'SearchResults'})
+        }
+      }) 
     }
-
   },
     mounted() {
     userinfo()
