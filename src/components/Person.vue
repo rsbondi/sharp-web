@@ -15,7 +15,14 @@
     </div>
     <div class="flex-container">
       <div class="request">
-        <button v-if="isOfferingAccountability && !isAccountability" @click="requestAccountability">Request Accountability Partner</button>
+        <div v-if="isOfferingAccountability && !isAccountability">
+          <button @click="showAcceptAccountability=true">Request Accountability</button>
+          <AcceptAccountability
+            v-if="showAcceptAccountability"
+            :accept="requestAccountability"
+            :reject="() => showAcceptAccountability=false"
+          />
+        </div>
         <div class="status">{{accountabilityStatus}}</div>
       </div>
       <div class="request">
@@ -46,6 +53,7 @@ import { IMAGE_BASE_URL, REQUEST } from '../constants'
 import { request, follow } from '../api'
 import ProfileLink from './ProfileLink.vue'
 import Rating from './Rating.vue'
+import AcceptAccountability from './AcceptAccountability.vue'
 
 export default {
   name: "Person",
@@ -53,12 +61,13 @@ export default {
     person: Object
   },
   components: {
-    ProfileLink, Rating
+    ProfileLink, Rating, AcceptAccountability
   },
   data() {
     return {
-      IMAGE_BASE_URL: IMAGE_BASE_URL,
-      REQUEST: REQUEST,
+      IMAGE_BASE_URL,
+      REQUEST,
+      showAcceptAccountability: false,
     }
   },
   computed: {
@@ -109,6 +118,7 @@ export default {
       request(REQUEST.TYPE.ACCOUNTABILITY, this.person.id).then(data => {
         if (data.success) {
           this.updateRequest(REQUEST.TYPE.ACCOUNTABILITY)
+          this.showAcceptAccountability = false
         }
       })
     },
