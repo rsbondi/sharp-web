@@ -17,16 +17,43 @@
       <div class="request">
         <div v-if="isOfferingAccountability && !isAccountability">
           <button @click="showAcceptAccountability=true">Request Accountability</button>
-          <AcceptAccountability
+          <AcceptRequest
             v-if="showAcceptAccountability"
             :accept="requestAccountability"
             :reject="() => showAcceptAccountability=false"
-          />
+          >
+            <p>
+              Accountability partnering is an important element to your success.
+              By parnering with another, you are making a commitment to provide mutual support.
+              You agree to be a good listener and support whatever issues are presented.
+              Also you will be seeking support with your issues.
+              Try to avoid giving unsolicited advice.
+              These are suggested guidelines, but you are free to interact in any way as long
+              as in agreement with your partner.  We wish you success in partnering.
+            </p>
+          </AcceptRequest>
         </div>
         <div class="status">{{accountabilityStatus}}</div>
       </div>
       <div class="request">
-        <button v-if="isOfferingMentor && !isMentor" @click="requestMentor">Request For Mentoring</button>
+        <div v-if="isOfferingMentor && !isMentor">
+          <button @click="showAcceptMentor=true">Request For Mentoring</button>
+          <AcceptRequest
+            v-if="showAcceptMentor"
+            :accept="requestMentor"
+            :reject="() => showAcceptMentor=false"
+          >
+            <p>
+              A mentor will be your guide.  They should have more experience and can help
+              you through whatever issues you may encounter on your health journey.
+              They are volunteers so be respectful of their efforts and time.
+              They only offer help the best they can, ultimately any decisions about your
+              health are yours to make and yours only.
+              You will be able to rate your mentor if they accept. Best of luck with
+              With your potential partnership.
+            </p>
+          </AcceptRequest>
+        </div>
         <div class="status">{{mentorStatus}}</div>
       </div>
       <div class="request">
@@ -53,7 +80,7 @@ import { IMAGE_BASE_URL, REQUEST } from '../constants'
 import { request, follow } from '../api'
 import ProfileLink from './ProfileLink.vue'
 import Rating from './Rating.vue'
-import AcceptAccountability from './AcceptAccountability.vue'
+import AcceptRequest from './AcceptRequest.vue'
 
 export default {
   name: "Person",
@@ -61,13 +88,14 @@ export default {
     person: Object
   },
   components: {
-    ProfileLink, Rating, AcceptAccountability
+    ProfileLink, Rating, AcceptRequest
   },
   data() {
     return {
       IMAGE_BASE_URL,
       REQUEST,
       showAcceptAccountability: false,
+      showAcceptMentor: false,
     }
   },
   computed: {
