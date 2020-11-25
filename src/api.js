@@ -18,6 +18,10 @@ function postApi(command, data, method, contenttype) {
           reject(e.message)
         }
       }
+      if (this.readyState === XMLHttpRequest.DONE && this.status === 403) {
+        const response = JSON.parse(this.responseText)
+        reject(new Error(response.err))
+      }
     };
 
     xhr.onerror = reject
