@@ -45,6 +45,9 @@
         <div class="form-field">
           <button type="submit">Login</button>
         </div>
+        <div class="formError">
+          {{loginError}}
+        </div>
       </form>
       <form id="register-form" @submit.prevent="doRegister">
         <h2>Register</h2>
@@ -67,8 +70,8 @@
         <div class="form-field">
           <button type="submit">Register</button>
         </div>
-        <div class="err">
-          {{err}}
+        <div class="formError">
+          {{registerError}}
         </div>
       </form>
     </div>
@@ -89,7 +92,8 @@ export default {
       fullname: "",
       confirm: "",
       email: "",
-      err: "",
+      registerError: "",
+      loginError: "",
       ASSETS_URL
     };
   },
@@ -100,26 +104,31 @@ export default {
       this.$router.push('/')
     },
     doLogin(e) {
+      this.loginError = ""
       login(this.username, this.password).then((response) => {
         if (response.success) {
           this.proceed(response.macaroon)
+        } else {
+          this.loginError = response.err
         }
+      }).catch(e => {
+        this.loginError = e.message
       });
     },
     doRegister(e) {
-      this.err = ""
-      if (this.regeiserUsername === "") this.err = "username required"
-      else if (this.registerPassword === "") this.err = "password required"
-      else if (this.confirm === "") this.err = "confirm password required"
-      else if (this.confirm !== this.registerPassword) this.err = "confirm and password must match"
-      else if (this.fullname === "") this.err = "display name required"
-      if (!this.err)
+      this.registerError = ""
+      if (this.regeiserUsername === "") this.registerError = "username required"
+      else if (this.registerPassword === "") this.registerError = "password required"
+      else if (this.confirm === "") this.registerError = "confirm password required"
+      else if (this.confirm !== this.registerPassword) this.registerError = "confirm and password must match"
+      else if (this.fullname === "") this.registerError = "display name required"
+      if (!this.registerError)
       newuser(this.regeiserUsername, this.registerPassword, this.fullname, this.email).then(response => {
         if (response.success) {
           this.proceed(response.macaroon)
         } else {
-          if (response.code === 19) this.err = "duplate username"
-          else this.err = "unknown error"
+          if (response.code === 19) this.registerError = "duplate username"
+          else this.registerError = "unknown error"
         }
       }).catch(e => console.log)
     }
@@ -153,7 +162,7 @@ p {
   margin: 1em;
 }
 
-.err {
+.formError {
   color: red;
   font-size: 0.8em;
   font-style: italic;
