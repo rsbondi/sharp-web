@@ -1,15 +1,13 @@
 <template>
   <TopBar></TopBar>
-  <div class="topbar sidebars">
+  <div class="main-content sidebars">
     <div class="flex-columns sides">
       <div class="logo-search">
     <NavMenu/>
 
       </div>
-      <div class="topbar-right">
-    <!-- <div class="fill"> -->
+      <div class="main-right">
       <Actions/>
-    <!-- </div> -->
 
       </div>
     </div>
