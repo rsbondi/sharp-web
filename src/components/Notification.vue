@@ -123,10 +123,6 @@ export default {
 </script>
 
 <style>
-.notifications {
-  width: 800px;
-}
-
 .notification-avatar-img {
   height: 50px;
   width: 50px;

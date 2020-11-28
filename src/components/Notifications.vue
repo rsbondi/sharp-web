@@ -26,10 +26,3 @@ export default {
 
 };
 </script>
-
-<style>
-.notifications {
-  width: 800px;
-}
-
-</style>
