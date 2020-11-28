@@ -118,6 +118,7 @@ body {
   -ms-flex-align: center;
   align-items: center;
   position: relative;
+  left: 17px;
 }
 
 .topbar-icons {

@@ -17,7 +17,7 @@
   <div class="flex-container">
     <router-view>
       <keep-alive>
-        <component :is="currentComponent" />
+        <component class="body-component" :is="currentComponent" />
       </keep-alive>
     </router-view>
 

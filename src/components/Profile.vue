@@ -1,5 +1,5 @@
 <template>
-  <div class="profile-wrapper">
+  <div class="body-component">
     <h2>Profile</h2>
     <div class="profile">
       <div class="profile-edit" v-if="showEdit">
@@ -14,14 +14,16 @@
         </label>
         <input id="cover-input" type="file" @change="coverChanged" />
 
-        <div class="profile-avatar" :class="okclick">
-          <label for="avatar-input">
-            <img
-              :src="avatarUrl"
-              class="profile-avatar-img"
-            />
-          </label>
-          <input id="avatar-input" type="file" @change="avatarChanged" />
+        <div class="avatar-container">
+          <div class="profile-avatar" :class="okclick">
+            <label for="avatar-input">
+              <img
+                :src="avatarUrl"
+                class="profile-avatar-img"
+              />
+            </label>
+            <input id="avatar-input" type="file" @change="avatarChanged" />
+          </div>
         </div>
       </div>
     </div>
@@ -30,7 +32,7 @@
       <PencilIcon @click="showEdit=!showEdit"/>
     </div>
 
-    <div :class="!~$store.state.profileUser ? 'offering' : ''">
+    <div class="offer" :class="!~$store.state.profileUser ? 'offering' : ''">
       <label>
         <input 
           type="checkbox" 
@@ -80,7 +82,7 @@
       :close="() => reviewsVisible=false"
     />
 
-    <div class="feed">
+    <div>
       <ul>
         <li v-for="post in feedContent" :key="post.id">
           <FeedItem :post="post" />
@@ -233,9 +235,6 @@ export default {
 </script>
 
 <style scoped>
-.profile-wrapper {
-  width: 800px;
-}
 .profile-avatar {
   bottom: -50px;
   position: absolute;
@@ -243,8 +242,8 @@ export default {
   border-radius: 50%;
   height: 100px;
   width: 100px;
-  left: 350px;
-  display: flex;
+  /* left: 350px;
+  display: flex; */
   overflow: hidden;
   padding: 0;
 }
@@ -276,9 +275,17 @@ export default {
 }
 
 .cover-image {
-  width: 800px;
+  width: 100%;
   height: 400px;
   cursor: pointer;
+  max-width: 100%;
+  margin: auto;
+}
+
+@media (min-width: 1007px) {
+  .cover-image {
+    width: 800px
+  }
 }
 
 .nope {
@@ -302,6 +309,16 @@ export default {
   cursor: pointer;
 }
 
+.offer {
+  margin-top: 60px;
+}
+
+@media (min-width: 1007px) {
+  .offer {
+    margin-top: 5px;
+  }
+}
+
 .reviews-link {
   text-align: center;
 }
@@ -321,5 +338,11 @@ export default {
   border-radius: 0.5em;
   background-color: #fafafa;
   box-sizing: border-box;
+}
+
+.avatar-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 </style>
