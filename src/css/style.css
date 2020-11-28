@@ -254,7 +254,13 @@ input[type="text"].search-box-input {
 }
 
 .body-component {
-  width: 800px
+  width: 100%;
+}
+
+@media (min-width: 1007px) {
+  .body-component {
+    width: 800px
+  }
 }
 
 ul, li {
