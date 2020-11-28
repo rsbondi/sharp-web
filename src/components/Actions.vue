@@ -48,6 +48,13 @@ export default {
   width: 200px;
   margin-top: 80px;
   margin-left: 40px;
+  display: none;
+}
+
+@media (min-width: 1007px) {
+  .actions {
+    display: block;
+  }
 }
 
 .action-verbiage {

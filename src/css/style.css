@@ -59,6 +59,7 @@ body {
 
 .menu-icon {
   cursor: pointer;
+  margin-left: 0.5em;
 }
 
 @media (min-width: 1007px) {
@@ -72,7 +73,7 @@ body {
   text-decoration: none;
   -webkit-transition: color 0.1s;
   transition: color 0.1s;
-  display: inline-block;
+  display: none;
   color: rgba(0,0,0,0.54);
   font-weight: 400;
   font-size: 14px;

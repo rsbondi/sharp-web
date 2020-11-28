@@ -3,7 +3,9 @@
   <div class="main-content sidebars">
     <div class="flex-columns sides">
       <div class="logo-search">
-    <NavMenu/>
+        <div class="nav-menu">
+          <NavMenu/>
+        </div>
 
       </div>
       <div class="main-right">
@@ -85,10 +87,20 @@ export default {
   width: 200px;
 }
 .sides {
-  width: 1250px;
   top: 0;
   align-items: flex-start;
   height: 0;
+}
+.nav-menu {
+  display: none;
+}
+@media (min-width: 1007px) {
+  .sides {
+    width: 1250px;
+  }
+  .nav-menu {
+    display: block;
+  }
 }
 .sidebars {
   border-bottom: none;

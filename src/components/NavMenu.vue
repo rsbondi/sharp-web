@@ -77,8 +77,13 @@ a:visited {
   color: gray;
 }
 
+@media (min-width: 1007px) {
+  .menu {
+    margin-top: 80px;
+  }
+}
+
 .menu {
-  margin-top: 80px;
   width: 200px;
 }
 .menu-item {

@@ -2,8 +2,11 @@
   <div class="topbar">
     <div class="flex-columns">
       <div class="logo-search">
-        <div class="menu-icon">
+        <div class="menu-icon" @click="toggleMenu">
           <MenuIcon />
+        </div>
+        <div v-if="shownav" @click="toggleMenu" class="navmenu">
+          <NavMenu/>
         </div>
         <a @click="loadFeed" class="logo" href="/">Health Explorer</a>
         <div class="search-box">
@@ -49,6 +52,7 @@ import SearchIcon from "./icons/SearchIcon.vue";
 import MessageIcon from "./icons/MessageIcon.vue";
 import MenuIcon from "./icons/MenuIcon.vue";
 import NotificationIcon from "./icons/NotificationIcon.vue";
+import NavMenu from './NavMenu.vue'
 import { PAGE, IMAGE_BASE_URL, DEFAULT_AVATAR_URL } from '../constants'
 import { userinfo, search } from "../api";
 
@@ -59,6 +63,7 @@ export default {
     MessageIcon,
     MenuIcon,
     NotificationIcon,
+    NavMenu
   },
   computed: {
     avatarUrl() {
@@ -75,6 +80,7 @@ export default {
       showProfileMenu: false,
       hoverTimer: null,
       searchQuery: '',
+      shownav: false
     }
   },
   methods: {
@@ -111,6 +117,9 @@ export default {
           this.$store.commit('setcontent', {key: 'currentComponent', data: 'SearchResults'})
         }
       }) 
+    },
+    toggleMenu() {
+      this.shownav = !this.shownav
     }
   },
     mounted() {
@@ -160,6 +169,21 @@ export default {
   text-decoration: none;
   display: block;
   margin: 0.5em;
+}
+
+.navmenu {
+  margin-top: 232px;
+  background-color: white;
+  position: absolute;
+  width: 100%;
+  border: 1px solid lightgray;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1007px) {
+  .navmenu {
+    display: none;
+  }
 }
 </style>
 
