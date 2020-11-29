@@ -9,7 +9,7 @@
     {{person.fullname}} <ProfileLink :user="profileUser" />
     <div class="flex-container">
       <div>Total posts: {{person.posts}}</div>
-      <div>Likes received: {{person.likes}}</div>
+      <div>Likes: {{person.likes}}</div>
       <div>Followers: {{person.followers}}</div>
       <div>Following: {{person.following}}</div>
     </div>
@@ -191,21 +191,41 @@ export default {
 }
 
 .person-img-container {
-  float: left;
-  margin-right: 1em;
+  margin-right: 0;
+  margin-left: 1em;
 }
 
 .person .flex-container div {
-  width: 160px;
-
+  width: 100px;
 }
+
+@media (min-width: 1007px) {
+  .person .flex-container div {
+    width: 160px;
+  }
+  .person-img-container {
+    float: left;
+    margin-right: 1em;
+  }
+  .person-img-container {
+    float: left;
+    margin-right: 1em;
+  }
+}
+
 
 .person .flex-container {
   margin-top: 10px;;
 }
 
 .person .flex-container div.request {
-  width: 220px;
+  width: 119px;
+}
+
+@media (min-width: 1007px) {
+  .person .flex-container div.request {
+    width: 220px;
+  }
 }
 
 .status {

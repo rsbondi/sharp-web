@@ -130,6 +130,7 @@ export default {
   .stars {
     position: relative;
     overflow: visible;
+    min-width: 160px;
   }
   .review {
     position: absolute;

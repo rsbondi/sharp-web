@@ -56,10 +56,6 @@ export default {
 </script>
 
 <style scoped>
-.people {
-  width: 800px;
-}
-
 .filter {
   float: right;
   position: relative;
