@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-container">
+  <div class="login-container">
     <div class="promo">
       <h2>Welcome!</h2>
       <p>
@@ -157,14 +157,23 @@ p {
   margin-bottom: 1em;;
 }
 
-.promo {
-  width: 600px;
-  margin: 1em;
-}
-
 .formError {
   color: red;
   font-size: 0.8em;
   font-style: italic;
 }
+
+@media (min-width: 1007px) {
+  .login-container {
+    display: flex;
+    justify-content: center;;
+  }
+
+  .promo {
+    margin: 1em;
+    width: 600px;
+  }
+}
+
+
 </style>
