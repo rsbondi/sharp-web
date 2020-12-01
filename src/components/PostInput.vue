@@ -1,7 +1,7 @@
 <template>
   <input 
-    @keyup="doSearch" 
-    @keyup.enter="doPost" 
+    @keypress="doSearch" 
+    @keypress.enter="doPost" 
     v-model="value" 
     type="text" 
     :placeholder="placeholder"
@@ -22,9 +22,8 @@ import { searchusers } from "../api"
 export default {
   methods: {
     doSearch(e) {
-
       if(e.key === '@' || this.at) {
-        this.at = this.at || e.target.selectionStart
+        this.at = this.at || e.target.selectionStart+1
         if (this.searchTimer) clearTimeout(this.searchTimer)
         this.searchTimer = setTimeout(() => {
           this.search = this.value.slice(this.at).split(/\s/)[0]
