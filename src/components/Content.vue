@@ -1,7 +1,7 @@
 <template>
   <span v-if="chunks.length===1" v-linkable>{{chunks[0]}}</span>
   <div class="chunk" v-if="chunks.length > 1">
-    <span  v-for="(chunk, index) in chunks" :key=index>
+    <span  v-for="(chunk, index) in chunks" :key=index v-linkable>
       {{chunk}}
       <ProfileLink v-if="index < chunks.length-1" :user="mention(index)"/>
     </span>
