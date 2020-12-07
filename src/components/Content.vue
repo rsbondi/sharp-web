@@ -31,14 +31,6 @@ export default {
       const chunks = content.split(/__[^\s]+__/g)
       return chunks
     }
-  },
-  directives: {
-    linkable: {
-      mounted(el) {
-        el.innerHTML = el.innerHTML
-          .replace(/(https:\/\/[^(\s|$)]+)/g, '<a href="$1">$1</a>')
-      }
-    }
   }
 }
 </script>

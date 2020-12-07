@@ -8,7 +8,7 @@
   <div>
     <Time :created_at="comment.created_at" />
   </div>
-  <div class="comment-content">
+  <div class="comment-content" v-linkable>
     {{comment.content}}
   </div>
   <div v-if="comment.likes">
