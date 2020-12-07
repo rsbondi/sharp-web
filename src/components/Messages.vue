@@ -46,13 +46,8 @@
         </div>
         <div v-if="mode==='chat'">
           <ul>
-            <li v-for="message in user.messages" :key="message.id">
-              <div class="message" :class="message.mine ? 'mine' : 'theirs'" v-linkable>
-                {{message.content}}
-              </div>
-              <div class="msgtime clear" :class="message.mine ? 'mytime' : 'theirtime'">
-                <Time :created_at="message.created_at"/>
-              </div>
+            <li v-for="message in user.messages" :key="message.message_id">
+              <MessageContent :message="message" /> 
             </li>
           </ul>
         </div>
@@ -64,12 +59,12 @@
 <script>
 import { message, searchusers } from "../api"
 import { IMAGE_BASE_URL } from '../constants'
-import Time from './Time.vue'
 import SearchIcon from './icons/SearchIcon'
+import MessageContent from './MessageContent'
 
 export default {
   name: "Messages",
-  components: {Time, SearchIcon},
+  components: {SearchIcon, MessageContent},
   data() {
     return {
       message: "",
