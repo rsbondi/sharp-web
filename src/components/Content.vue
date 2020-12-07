@@ -1,5 +1,5 @@
 <template>
-  <span v-if="chunks.length===1">{{chunks[0]}}</span>
+  <span v-if="chunks.length===1" v-linkable>{{chunks[0]}}</span>
   <div class="chunk" v-if="chunks.length > 1">
     <span  v-for="(chunk, index) in chunks" :key=index>
       {{chunk}}
@@ -30,6 +30,14 @@ export default {
       })
       const chunks = content.split(/__[^\s]+__/g)
       return chunks
+    }
+  },
+  directives: {
+    linkable: {
+      mounted(el) {
+        el.innerHTML = el.innerHTML
+          .replace(/(https:\/\/[^(\s|$)]+)/g, '<a href="$1">$1</a>')
+      }
     }
   }
 }
