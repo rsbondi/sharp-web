@@ -354,6 +354,10 @@ ul {
   color: white;
 }
 
+.mine a {
+  color: yellow
+}
+
 .theirs {
   float: left;
   background-color: #fafafa;

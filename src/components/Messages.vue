@@ -47,7 +47,7 @@
         <div v-if="mode==='chat'">
           <ul>
             <li v-for="message in user.messages" :key="message.id">
-              <div class="message" :class="message.mine ? 'mine' : 'theirs'">
+              <div class="message" :class="message.mine ? 'mine' : 'theirs'" v-linkable>
                 {{message.content}}
               </div>
               <div class="msgtime clear" :class="message.mine ? 'mytime' : 'theirtime'">
