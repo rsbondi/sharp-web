@@ -28,8 +28,9 @@
           <NotificationIcon />
           <div v-show="unseen" class="unseen">{{unseen}}</div>
         </div>
-        <button class="topbar-avatar-icon" @click="loadProfile"  
-          @mouseover="showProfileMenu=true" @mouseleave="bye">
+        <button class="topbar-avatar-icon" 
+          @click="showProfileMenu=!showProfileMenu"
+          >
           <div class="topbar-icons topbar-avatar">
             <img
               :src="avatarUrl"
@@ -37,8 +38,7 @@
             />
           </div>
         </button>
-        <div v-if="showProfileMenu" class="profile-menu"  
-          @mouseover="stay" @mouseleave="bye">
+        <div v-if="showProfileMenu" class="profile-menu">
           <a href="" @click.prevent="loadProfile">Profile</a>
           <a href="" @click.prevent="logout">Logout</a>
         </div>
@@ -98,12 +98,6 @@ export default {
       this.$store.commit('setcontent', {key: 'profileUser', data: -1})
       this.$router.push('profile')
       this.showProfileMenu = false;
-    },
-    bye() {
-      this.hoverTimer = setTimeout(() => this.showProfileMenu = false, 1000)
-    },
-    stay() {
-      clearTimeout(this.hoverTimer)
     },
     logout() {
       localStorage.removeItem('macaroon')
