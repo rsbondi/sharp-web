@@ -312,13 +312,12 @@ ul {
 }
 
 .msgusers {
-  width: 200px;
+  width: 100%;
 }
 
 .msgcontainer  {
-  display: flex;
   border: 1px solid lightgray;
-  width: 800px;
+  width: 100%;
 }
 
 .nobot {
@@ -328,6 +327,7 @@ ul {
 .msgusers {
   border-right: 1px solid lightgray;
   padding: 1em;
+  box-sizing: border-box;
 }
 
 .msgusers li {
@@ -379,8 +379,29 @@ ul {
 }
 
 .messages {
-  width: 600px;
+  width: 100%;
   padding: 1em;
+  box-sizing: border-box;
+}
+
+
+@media (min-width: 1007px) {
+  .msgcontainer {
+    width: 800px
+  }
+  .msgusers {
+    width: 200px;
+  }
+  .message {
+    max-width: 75%;
+  }
+  .messages {
+    width: 600px;
+  }
+  .msgcontainer  {
+    display: flex;
+  }
+  
 }
 
 .comments {
