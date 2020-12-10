@@ -8,7 +8,7 @@
     </div>
     {{person.fullname}} <ProfileLink :user="profileUser" />
     <div class="flex-container">
-      <div>Total posts: {{person.posts}}</div>
+      <div>Posts: {{person.posts}}</div>
       <div>Likes: {{person.likes}}</div>
       <div>Followers: {{person.followers}}</div>
       <div>Following: {{person.following}}</div>
@@ -196,7 +196,7 @@ export default {
 }
 
 .person .flex-container div {
-  width: 100px;
+  width: 50%;
 }
 
 @media (min-width: 1007px) {
@@ -216,10 +216,12 @@ export default {
 
 .person .flex-container {
   margin-top: 10px;;
+  flex-wrap: wrap;
 }
 
 .person .flex-container div.request {
-  width: 119px;
+  width: 100%;
+  margin: 0.3em 0;
 }
 
 @media (min-width: 1007px) {
