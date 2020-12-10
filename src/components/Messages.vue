@@ -1,18 +1,5 @@
 <template>
   <div>
-    <h2>Messages</h2>
-    <div class="msgcontainer nobot">
-      <div class="msgusers">
-        <span>Chats</span>
-        <div class="search-users-btn" v-show="mode==='chat'">
-          <button @click="searchMode" ><SearchIcon/></button>
-        </div>
-      </div>
-      <div class="messages">
-        <input @keyup.enter="doMessage" v-model="message" v-if="mode==='chat'" type="text" placeholder="Message">
-        <input @keyup="doSearch" v-model="search" v-if="mode==='search'" type="text" placeholder="Type name of person">
-      </div>
-    </div>
     <div class="msgcontainer">
       <div class="msgusers">
         <ul>
@@ -31,6 +18,13 @@
         </ul>
       </div>
       <div class="messages">
+        <input @keyup.enter="doMessage" v-model="message" v-if="mode==='chat'" type="text" placeholder="Message">
+        <input @keyup="doSearch" v-model="search" v-if="mode==='search'" type="text" placeholder="Type name of person">
+      <div class="messages-input">
+        <div class="search-users-btn" v-show="mode==='chat'">
+          <button @click="searchMode" ><SearchIcon/></button>
+        </div>
+      </div>
         <div class="search-results" v-if="mode==='search' && searchReults.length">
           <ul>
             <li v-for="user in searchReults" :key="user.id">
@@ -165,7 +159,9 @@ export default {
 }
 
 .search-users-btn {
-  float: right;
+  position: absolute;
+  right: 6px;
+  top: -32px;
 }
 
 .search-results {
@@ -182,5 +178,9 @@ export default {
   height: 50px;
   clear: both;
   cursor: pointer;
+}
+
+.messages-input {
+  position: relative;
 }
 </style>

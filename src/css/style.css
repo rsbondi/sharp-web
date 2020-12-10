@@ -311,21 +311,12 @@ ul {
   margin: 1em 0
 }
 
-.msgusers {
-  width: 100%;
-}
-
-.msgcontainer  {
-  border: 1px solid lightgray;
-  width: 100%;
-}
-
 .nobot {
   border-bottom: 0;
 }
 
 .msgusers {
-  border-right: 1px solid lightgray;
+  width: 100%;
   padding: 1em;
   box-sizing: border-box;
 }
@@ -385,12 +376,18 @@ ul {
 }
 
 
+.msgcontainer  {
+  width: 100%;
+  height: 100%;
+}
+
 @media (min-width: 1007px) {
   .msgcontainer {
     width: 800px
   }
   .msgusers {
     width: 200px;
+    border-right: 1px solid lightgray;
   }
   .message {
     max-width: 75%;
@@ -398,8 +395,10 @@ ul {
   .messages {
     width: 600px;
   }
+  
   .msgcontainer  {
     display: flex;
+    border: 1px solid lightgray;
   }
   
 }
