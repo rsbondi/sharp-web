@@ -7,13 +7,31 @@ const app = createApp(App).use(router).use(store)
 app.mount('#app')
 app.directive('linkable', {
     mounted(el) {
-      el.innerHTML = el.innerHTML
-        .replace(/(https:\/\/[^(\s|$)]+)/g, link => {
-          if (link.length > 17) {
-            return `<a href="${link}" title="${link}">${link.slice(0,15)}...</a>`
-          } else {
-            return `<a href="${link}" title="${link}">${link}</a>`
+      const children = el.childNodes
+      const linkExpression = /(https:\/\/[^(\s|$)]+)/g
+      for (var c=0; c<children.length; c++) {
+        const child = children[c]
+        if (child.nodeName === '#text') {
+          const parts = child.textContent.split(linkExpression)
+          if (parts.length > 1) {
+            const parent = child.parentElement
+            const frag = document.createDocumentFragment()
+            parts.forEach(part => {
+              if (part.match(linkExpression)) {
+                const a = document.createElement('a')
+                a.href = part
+                a.textContent = part.length > 17 ? `${part.slice(0, 15)}...` : part
+                frag.appendChild(a)
+              } else {
+                const txt = document.createElement('text')
+                txt.textContent = part
+                frag.appendChild(txt)
+              }
+            })
+            parent.innerHTML = ''
+            parent.appendChild(frag)
           }
-        })
+         }
+      }
     }
   })
