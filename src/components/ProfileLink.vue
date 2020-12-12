@@ -1,5 +1,5 @@
 <template>
-  <a href="" @click.prevent="setProfileUser" @mouseover="showInfo" @mouseleave="bye"><em>{{user.username}}</em></a>
+  <a href="" @click.prevent="setProfileUser" @mouseover="showInfo" @mouseleave="bye"><em>@{{user.username}}</em></a>
   <div class="rel" v-show="showHover">
     <div class="hover-content" @mouseover="stay" @mouseleave="bye">
       <UserInfo :user="userDetails" />
