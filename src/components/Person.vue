@@ -4,7 +4,7 @@
       <img class="person-avatar-img" :src="`${IMAGE_BASE_URL}/${person.avatar_image}`"/>
     </div>
     <div class="person-img-container" v-if="!person.avatar_image">
-      <div class="person-avatar-img">&nbsp;</div>
+      <img class="person-avatar-img" :src="DEFAULT_AVATAR_URL"/>
     </div>
     {{person.fullname}} <ProfileLink :user="profileUser" />
     <div class="flex-container">
@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import { IMAGE_BASE_URL, REQUEST } from '../constants'
+import { IMAGE_BASE_URL, REQUEST, DEFAULT_AVATAR_URL } from '../constants'
 import { request, follow } from '../api'
 import ProfileLink from './ProfileLink.vue'
 import Rating from './Rating.vue'
@@ -93,6 +93,7 @@ export default {
   data() {
     return {
       IMAGE_BASE_URL,
+      DEFAULT_AVATAR_URL,
       REQUEST,
       showAcceptAccountability: false,
       showAcceptMentor: false,
