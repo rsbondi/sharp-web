@@ -1,6 +1,6 @@
 <template>
-  <input 
-    @keypress="doSearch" 
+  <input
+    @keydown="doSearch" 
     @keypress.enter="doPost" 
     v-model="value" 
     type="text" 
@@ -22,20 +22,25 @@ import { searchusers } from "../api"
 export default {
   methods: {
     doSearch(e) {
-      if(e.key === '@' || this.at) {
-        this.at = this.at || e.target.selectionStart+1
-        if (this.searchTimer) clearTimeout(this.searchTimer)
-        this.searchTimer = setTimeout(() => {
-          this.search = this.value.slice(this.at).split(/\s/)[0]
-          searchusers(this.search).then(response => {
-            if (response.success) {
-              this.searchResults = response.users
-            }
-          })
-        }, 500)
-      } else {
-        this.searchResults = []
-      }
+      // android keyup hack
+      setTimeout(() => {
+        this.value = e.target.value
+        const thisKey = e.target.value.slice(e.target.selectionStart-1, e.target.selectionStart)
+        if(thisKey === '@' || this.at) {
+          this.at = this.at || e.target.selectionStart
+          if (this.searchTimer) clearTimeout(this.searchTimer)
+          this.searchTimer = setTimeout(() => {
+            this.search = this.value.slice(this.at).split(/\s/)[0]
+            searchusers(this.search).then(response => {
+              if (response.success) {
+                this.searchResults = response.users
+              }
+            })
+          }, 500)
+        } else {
+          this.searchResults = []
+        }
+      }, 0)
     },
     mention(e) {
       this.value = this.value.replace(`@${this.search}`, `@${e.username}`)
