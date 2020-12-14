@@ -22,12 +22,12 @@
   <div>
       <!-- <transition name="expand">   -->
     <div v-show="showComments">
+      <input @keyup.enter="doComment" v-model="commentContent" type="text" placeholder="Comment" class="comment-input" />
       <ul class="comment">
         <li v-for="comment in post.comments" :key="comment.id">
           <Comment :comment="comment"/>
         </li>
       </ul>
-      <input @keyup.enter="doComment" v-model="commentContent" type="text" placeholder="Comment" />
     </div>
       <!-- </transition> -->
   </div>
@@ -130,4 +130,9 @@ export default {
 .like-icon {
   fill: white;
 }
+
+.comment-input {
+  margin: 1em 0;
+}
+
 </style>
