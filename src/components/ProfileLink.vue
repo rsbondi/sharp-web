@@ -10,6 +10,7 @@
 <script>
 import UserInfo from './UserInfo.vue'
 import { userinfo } from '../api'
+import { PAGE } from '../constants'
 
 export default {
   props: {
@@ -26,7 +27,7 @@ export default {
   methods: {
     setProfileUser() {
       this.$store.commit('setcontent', {key: 'profileUser', data: this.user.user_id})
-      this.$router.push('/profile')
+      this.$store.dispatch('setpage', PAGE.PROFILE)
     },
     showInfo() {
       userinfo(this.user.user_id).then(response => {
