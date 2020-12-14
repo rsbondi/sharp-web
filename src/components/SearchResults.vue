@@ -26,18 +26,20 @@ export default {
           this.$store.commit('setcontent', {key: 'profileUser', data: item.id})
           this.$store.dispatch('setpage', PAGE.PROFILE)
           this.$store.commit('setcontent', {key: 'currentComponent', data: 'Profile'})
-          this.$router.push('/profile')
+          this.$router.push('/profile#') // hack to sync feed if going to your profile after search
           break;
         case 'program':
           this.$store.commit('setcontent', {key: 'programView', data: 'browse'})
           this.$store.commit('setcontent', {key: 'programFilter', data: item.id})
           this.$store.commit('setcontent', {key: 'currentComponent', data: 'Program'})
+          this.$store.dispatch('setpage', PAGE.PROGRAM)
           this.$router.push('/program')
           break;
         case 'program_phase':
           this.$store.commit('setcontent', {key: 'programView', data: 'browse'})
           this.$store.commit('setcontent', {key: 'currentComponent', data: 'Program'})
           this.$store.commit('setcontent', {key: 'programFilter', data: item.parent})
+          this.$store.dispatch('setpage', PAGE.PROGRAM)
           this.$router.push('/program')
           break;
       }
