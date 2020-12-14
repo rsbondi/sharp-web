@@ -109,6 +109,7 @@ export default {
           this.searchQuery = ''
           this.$store.commit('setcontent', {key: 'searchResults', data: response.results})
           this.$store.commit('setcontent', {key: 'currentComponent', data: 'SearchResults'})
+          this.$router.push('/search')
         }
       }) 
     },
