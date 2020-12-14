@@ -68,6 +68,18 @@ export default {
     },
     doComment() {
       comment(this.commentContent, this.post.id).then(response => {
+        const content = this.commentContent
+        if (response.success) {
+          const me = this.$store.state.user
+          const comment = {
+            avatar_image: me.avatar_image,
+            fullname: me.fullname,
+            username: me.username,
+            likes: 0,
+            ...response
+          }
+          this.$store.commit('addcomment', comment)
+        }
         this.commentContent = ""
         // this.$store.dispatch('getfeed')
       }).catch(console.log)

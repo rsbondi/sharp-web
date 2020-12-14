@@ -67,6 +67,12 @@ export default createStore({
       if (payload.username in state.messages) {
         state.messageTo = state.messages[payload.username]
       } else state.messageTo = payload
+    },
+    addcomment(state, payload) {
+      const post = state.feed.posts.find(post => {
+        return post.id === payload.post_id
+      })
+      post.comments.unshift(payload)
     } 
   },
   actions: {
