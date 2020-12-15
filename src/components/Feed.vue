@@ -1,5 +1,5 @@
 <template>
-  <div class="body-content">
+  <div class="body-component">
     <h2>Feed</h2>
 
     <PostInput :post="doPost" ref="postinput" placeholder="New Post" />
