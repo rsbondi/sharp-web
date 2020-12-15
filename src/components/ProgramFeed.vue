@@ -1,7 +1,7 @@
 <template>
   <h2>Program</h2>
   <ProgramItem :program="program" />
-  <div class="feed">
+  <div class="body-content">
     
     <input @keyup.enter="doPost" v-model="postContent" type="text" placeholder="New Post" />
 
