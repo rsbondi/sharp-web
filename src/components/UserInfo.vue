@@ -1,7 +1,7 @@
 <template>
   <div class="fullname">{{user.fullname}}</div>
   <div v-if="user.bio" class="flex-container">
-    <div class="bio">{{user.bio}}</div>
+    <div class="bio" v-linkable>{{user.bio}}</div>
   </div>
   <div class="flex-container">
     <div class="follow"><a href="" @click.prevent="following">Following {{user.following}}</a></div>
