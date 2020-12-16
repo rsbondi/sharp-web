@@ -25,7 +25,7 @@ export default {
   computed: {
     chunks() {
       let content = this.post.content
-      this.post.mentions.forEach(m => {
+      this.post.mentions?.forEach(m => {
         content = content.replace(`@${m.username}`, `__${m.username}__`)
       })
       const chunks = content.split(/__[^\s]+__/g)
