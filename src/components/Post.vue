@@ -24,7 +24,6 @@ export default {
   methods: {
     updatePost() {
       const post = this.$store.state.feed.posts.find(e => e.id === this.$store.state.activePost)
-      console.log(post)
       if (post) {
         this.post = post
         this.$store.commit('setcontent', {key: 'activePost', data: -1})

@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import { notifications, seeall } from "../api";
-import { REQUEST } from "../constants";
 import Notification from './Notification'
 
 export default {
