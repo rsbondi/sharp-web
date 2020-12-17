@@ -142,7 +142,10 @@ export default {
       const parts = this.person.requests.split(',')
       parts.push(requestType)
       this.person.requests = parts.join(',')
-    },
+      const status = this.person.request_status.split(',')
+      status.push(''+REQUEST.STATUS.PENDING)
+      this.person.request_status = status.join(',')
+},
     requestAccountability() {
       request(REQUEST.TYPE.ACCOUNTABILITY, this.person.id).then(data => {
         if (data.success) {
